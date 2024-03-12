@@ -5,6 +5,7 @@ vim.opt.smartindent = true
 vim.opt.conceallevel = 1
 vim.opt.linebreak = true
 vim.opt.list = false
+vim.g.tabstop = 4
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'sh',
