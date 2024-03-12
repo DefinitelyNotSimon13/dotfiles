@@ -14,6 +14,18 @@ lspconfig.clangd.setup {
 
 lspconfig.tsserver.setup{ on_attach = on_attach }
 lspconfig.jdtls.setup({})
+lspconfig.rust_analyzer.setup {
+    settings = {
+        ['rust-analyzer'] = {
+            check = {
+                command = "clippy";
+            },
+            diagnostics = {
+                enable = true;
+            }
+        }
+    }
+}
 -- lspconfig.cssmodules_ls.setup { on_attach = on_attach }
 -- lspconfig.cssls.setup { on_attach = on_attach }
 --
