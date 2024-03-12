@@ -1,0 +1,96 @@
+ #!/usr/bin/env bash
+rofi_command="rofi -theme $HOME/.config/rofi/config/screenshot.rasi"
+
+time=`date +%Y-%m-%d-%I-%M-%S`
+geometry=`xrandr | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
+
+
+
+# Buttons
+layout=`cat $HOME/.config/rofi/config/screenshot.rasi | grep BUTTON | cut -d'=' -f2 | tr -d '[:blank:],*/'`
+if [[ "$layout" == "TRUE" ]]; then
+	screen="󰹑"
+	area="󰩭"
+	window=""
+	infive="󰔝"
+	inten="󰔜"
+else
+	screen="󰹑  Capture Desktop"
+	area="󰩭  Capture Area"
+	window="  Capture Monitor 1"
+	infive="󰔝  Take in 3s"
+	inten="󰔜  Take in 10s"
+fi
+
+# Notify and view screenshot
+notify_view () {
+	dunstify -u low --replace=699 "Copied to clipboard."
+	if [[ -e "$dir/$file" ]]; then
+		dunstify -u low --replace=699 "Screenshot Saved."
+	else
+		dunstify -u low --replace=699 "Screenshot Deleted."
+	fi
+}
+
+# countdown
+countdown () {
+	for sec in `seq $1 -1 1`; do
+		dunstify -t 1000 --replace=699 -i $icon2 "Taking shot in : $sec"
+		sleep 1
+	done
+}
+
+# take shots
+shotnow () {
+	sleep 0.5 && grim ~/Pictures/Screenshots/$(date +'%s_grim.png') | wl-copy
+	notify_view
+}
+
+shot5 () {
+	countdown '3'
+	sleep 1 && grim ~/Pictures/Screenshots/$(date +'%s_grim.png') | wl-copy
+	notify_view
+}
+
+shot10 () {
+	countdown '10'
+	sleep 1 && grim ~/Pictures/Screenshots/$(date +'%s_grim.png') | wl-copy
+	notify_view
+}
+
+shotmon1 () {
+	sleep 1 && grim -o DP-1 ~/Pictures/Screenshots/$(date +'%s_grim.png') | wl-copy
+	notify_view
+}
+
+shotarea () {
+	sleep 1 && grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%s_grim.png') | wl-copy
+	notify_view
+}
+
+if [[ ! -d "$dir" ]]; then
+	mkdir -p "$dir"
+fi
+
+# Variable passed to rofi
+options="$screen\n$area\n$window\n$infive\n$inten"
+
+chosen="$(echo -e "$options" | $rofi_command -p 'Take A Shot' -dmenu -selected-row 0)"
+case $chosen in
+    $screen)
+		shotnow
+        ;;
+    $area)
+		shotarea
+        ;;
+    $window)
+		shotmon1
+		;;
+    $infive)
+		shot5
+		;;
+    $inten)
+		shot10
+        ;;
+esac
+

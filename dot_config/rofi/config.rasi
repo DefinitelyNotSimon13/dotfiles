@@ -1,0 +1,96 @@
+configuration{
+    modi: "run";
+    show-icons: false;
+    terminal: "kitty";
+    location: 0;
+    disable-history: false;
+    display-run: "";
+    click-to-exit: true;
+}
+
+@import "config/colors.rasi"
+@import "config/border.rasi"
+
+* {
+  background-color: transparent;
+  text-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+window {
+  transparency: "real";
+  width: 250px;
+  border: @border-width;
+  border-radius: 15px;
+  border-color: @blue-90;
+  text-color: @fg-col;
+  background-color: @bg-col-90;
+  location: center;
+}
+
+mainbox {
+    children: [inputbar, listview];
+    padding: 10px;
+    border-radius: 6px;
+    background-color: transparent;
+    text-color: @fg-col;
+}
+
+inputbar {
+    children: [prompt,entry];
+    border-radius: 6px;
+    padding: 2px;
+    text-color: @fg-col;
+    background-color: inherit;
+}
+
+
+prompt {
+    padding: 6px;
+    border-radius: 6px;
+    margin: 12px 0px 0px 00px;
+    background-color: transparent;
+    text-color: @blue-90;
+}
+
+entry {
+    padding: 6px;
+    margin: 10px 5px 10px 10px;
+    border: 2px;
+    border-radius: 3px;
+    border-color: @blue-90;
+    text-color: @fg-col;
+    background-color: @bg-col-light;
+    placeholder:"Run...";
+}
+
+listview {
+    background-color: @bg-col;
+    dynamic: true;
+    cicle: false;
+    layout: vertical;
+    spacing: 4px;
+    columns: 1;
+    lines: 8;
+}
+
+element {
+    padding: 5px;
+    border-color: @peach;
+    background-color: transparent;
+    text-color: @fg-col;
+    border-radius: 10px;
+}
+
+element-text {
+  vertical-align: 0.5;
+  text-color: inherit;
+  background-color: transparent;
+}
+
+element selected {
+  background-color: @blue-90;
+  text-color: @bg-col;
+}
+
