@@ -265,5 +265,9 @@ local plugins = {
     config = true,
     cmd = "Glow"
   },
+  {
+    "alker0/chezmoi.vim",
+    lazy = false,
+  }
 }
 return plugins
