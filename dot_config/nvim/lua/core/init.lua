@@ -17,9 +17,9 @@ opt.cursorline = true
 
 -- Indenting
 opt.expandtab = true
-opt.shiftwidth = 2
+opt.shiftwidth = 4
 opt.smartindent = true
-opt.tabstop = 2
+opt.tabstop = 4
 opt.softtabstop = 2
 
 opt.fillchars = { eob = " " }
