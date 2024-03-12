@@ -5,7 +5,9 @@ vim.opt.smartindent = true
 vim.opt.conceallevel = 1
 vim.opt.linebreak = true
 vim.opt.list = false
-vim.g.tabstop = 4
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'sh',
