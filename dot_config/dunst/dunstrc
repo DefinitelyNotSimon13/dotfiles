@@ -1,0 +1,32 @@
+
+
+[global]
+frame_color = "#a6e3a1"
+separator_color= frame
+origin = top-center
+offset = 0x5
+frame_width = 2
+format = "<b>%s</b>\n%b\n<i>%a</i>"
+icon_theme = "Papirus-Dark,Adwaita,breeze-dark"
+enable_recursive_icon_lookup = true
+corner_radius = 10
+font = JetBrainsMonoNerdFont 8
+mouse_left_click = do_action
+mouse_middle_click = close_all
+mouse_right_click = close_current
+monitor = 1
+word_wrap = no
+
+[urgency_low]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+frame_color = "#89dceb"
+
+[urgency_normal]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+
+[urgency_critical]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+frame_color = "#f38ba8"
