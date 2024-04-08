@@ -16,9 +16,6 @@
 [submodule "neofetch"]
 	path = .config/neofetch
 	url = https://github.com/DefinitelyNotSimon13/neofetchConf
-[submodule "nvim"]
-	path = .config/nvim
-	url = https://github.com/DefinitelyNotSimon13/nvimConf
 [submodule "rofi"]
 	path = .config/rofi
 	url = https://github.com/DefinitelyNotSimon13/rofiConf
