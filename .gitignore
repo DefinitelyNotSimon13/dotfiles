@@ -1,3 +1,5 @@
+open_api_key.nu
+.open_api_key
 .history.db-wal
 .history.db
 .history.db-shm
