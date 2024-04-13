@@ -58,3 +58,6 @@
 [submodule "catppuccinLeftWM"]
 	path = .config/leftwm/themes/catppuccin
 	url = https://github.com/DefinitelyNotSimon13/catppuccinLeftWM
+[submodule "nvimNew"]
+	path = .config/nvim
+	url = https://github.com/DefinitelyNotSimon13/nvimConf-new
