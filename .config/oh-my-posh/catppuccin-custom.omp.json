@@ -1,0 +1,126 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "final_space": true,
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "os",
+          "style": "plain",
+          "foreground": "p:os",
+          "template": " {{.Icon}}  "
+        },
+        {
+          "type": "session",
+          "style": "plain",
+          "foreground": "p:blue",
+          "template": "{{ .UserName }} "
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "p:pink",
+          "template": "{{ .Path }} ",
+          "properties": {
+            "folder_icon": "..",
+            "home_icon": "|  ",
+            "style": "agnoster_short"
+          }
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground": "p:lavender",
+          "template": "{{ .HEAD }} ",
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "cherry_pick_icon": "\ue29b ",
+            "commit_icon": "\uf417 ",
+            "fetch_status": false,
+            "fetch_upstream_icon": false,
+            "merge_icon": "\ue727 ",
+            "no_commits_icon": "\uf0c3 ",
+            "rebase_icon": "\ue728 ",
+            "revert_icon": "\uf0e2 ",
+            "tag_icon": "\uf412 "
+          }
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "p:blue",
+          "template": "{{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 500,
+            "style": "austin",
+            "always_enabled": true
+          }
+        },
+        {
+          "type": "battery",
+          "style": "plain",
+          "foreground": "p:os",
+          "template": "{{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }} ",
+          "properties": {
+            "discharging_icon": "󰁾 ",
+            "charging_icon": "󱐋 ",
+            "charged_icon": "󰁹 "
+          }
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "p:pink",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "cmake",
+          "style": "plain",
+          "powerline_symbol": "",
+          "template": "   cmake {{ .Full }} "
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "status",
+          "style": "plain",
+          "foreground": "#a6d189",
+          "foreground_templates": [
+            "{{ if .Error }}#e91e63{{ end }}"
+          ],
+          "template": "  ",
+          "properties": {
+            "always_enabled": true
+          }
+        },
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:closer",
+          "template": " \uf105"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "palette": {
+    "blue": "#8CAAEE",
+    "closer": "p:os",
+    "lavender": "#BABBF1",
+    "os": "#ACB0BE",
+    "pink": "#F4B8E4"
+  }
+}

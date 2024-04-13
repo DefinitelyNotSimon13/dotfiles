@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/simon/Pictures/wallpapers/landscapes/evening-sky.png' 
