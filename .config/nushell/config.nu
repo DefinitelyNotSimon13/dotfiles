@@ -802,5 +802,6 @@ $env.config = {
 
 source "/home/simon/.config/nushell/starship.nu"
 source "/home/simon/.config/nushell/alias.nu"
+source "/home/simon/.config/nushell/open_api_key.nu"
 source ~/.zoxide.nu
 source ~/.oh-my-posh.nu
