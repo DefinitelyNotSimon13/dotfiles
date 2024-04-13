@@ -55,3 +55,6 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = https://github.com/DefinitelyNotSimon13/ohmyzsh-conf.git
+[submodule "nvimNew"]
+	path = .config/nvim
+	url = https://github.com/DefinitelyNotSimon13/nvimConf-new
