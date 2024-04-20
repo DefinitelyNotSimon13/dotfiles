@@ -17,7 +17,6 @@ def create_left_prompt [] {
 }
 
 def create_right_prompt [] {
-source .open_api_key
     # create a right prompt in magenta with green separators and am/pm underlined
     let time_segment = ([
         (ansi reset)
