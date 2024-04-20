@@ -223,4 +223,3 @@ path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 
 eval "$(atuin init zsh --disable-up-arrow)"
-source .open_api_key
