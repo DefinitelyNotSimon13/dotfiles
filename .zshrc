@@ -1,206 +1,66 @@
-export POSH_THEME=/home/simon/.config/oh-my-posh/catppuccin-custom.omp.json
-export POSH_SHELL_VERSION=$ZSH_VERSION
-export POSH_PID=$$
-export POWERLINE_COMMAND="oh-my-posh"
-export CONDA_PROMPT_MODIFIER=false
-export POSH_PROMPT_COUNT=0
-
-# set secondary prompt
-PS2="$(/usr/bin/oh-my-posh print secondary --config="$POSH_THEME" --shell=zsh)"
-
-function _set_posh_cursor_position() {
-  # not supported in Midnight Commander
-  # see https://github.com/JanDeDobbeleer/oh-my-posh/issues/3415
-  if [[ "false" != "true" ]] || [[ -v MC_SID ]]; then
-      return
-  fi
-
-  local oldstty=$(stty -g)
-  stty raw -echo min 0
-
-  local pos
-  echo -en "\033[6n" > /dev/tty
-  read -r -d R pos
-  pos=${pos:2} # strip off the esc-[
-  local parts=(${(s:;:)pos})
-
-  stty $oldstty
-
-  export POSH_CURSOR_LINE=${parts[1]}
-  export POSH_CURSOR_COLUMN=${parts[2]}
-}
-
-# template function for context loading
-function set_poshcontext() {
-  return
-}
-
-function prompt_ohmyposh_preexec() {
-  if [[ "false" = "true" ]]; then
-    printf "\033]133;C\007"
-  fi
-  omp_start_time=$(/usr/bin/oh-my-posh get millis)
-}
-
-function prompt_ohmyposh_precmd() {
-  omp_last_error=$? pipeStatus=(${pipestatus[@]})
-  omp_stack_count=${#dirstack[@]}
-  omp_elapsed=-1
-  no_exit_code="true"
-  if [ $omp_start_time ]; then
-    local omp_now=$(/usr/bin/oh-my-posh get millis --shell=zsh)
-    omp_elapsed=$(($omp_now-$omp_start_time))
-    no_exit_code="false"
-  fi
-  count=$((POSH_PROMPT_COUNT+1))
-  export POSH_PROMPT_COUNT=$count
-  set_poshcontext
-  _set_posh_cursor_position
-  eval "$(/usr/bin/oh-my-posh print primary --config="$POSH_THEME" --status="$omp_last_error" --pipestatus="${pipeStatus[*]}" --execution-time="$omp_elapsed" --stack-count="$omp_stack_count" --eval --shell=zsh --shell-version="$ZSH_VERSION" --no-status="$no_exit_code")"
-  unset omp_start_time
-}
-
-# add hook functions
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd prompt_ohmyposh_precmd
-add-zsh-hook preexec prompt_ohmyposh_preexec
-
-# perform cleanup so a new initialization in current session works
-if [[ "$(zle -lL self-insert)" = *"_posh-tooltip"* ]]; then
-  zle -N self-insert
-fi
-if [[ "$(zle -lL zle-line-init)" = *"_posh-zle-line-init"* ]]; then
-  zle -N zle-line-init
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-function _posh-tooltip() {
-  # https://github.com/zsh-users/zsh-autosuggestions - clear suggestion to avoid keeping it after the newly inserted space
-  if [[ -n "$(zle -lL autosuggest-clear)" ]]; then
-    # only if suggestions not disabled (variable not set)
-    if ! [[ -v _ZSH_AUTOSUGGEST_DISABLED ]]; then
-      zle autosuggest-clear
-    fi
-  fi
-  zle .self-insert
-  # https://github.com/zsh-users/zsh-autosuggestions - fetch new suggestion after the space
-  if [[ -n "$(zle -lL autosuggest-fetch)" ]]; then
-    # only if suggestions not disabled (variable not set)
-    if ! [[ -v _ZSH_AUTOSUGGEST_DISABLED ]]; then
-      zle autosuggest-fetch
-    fi
-  fi
+# zinit ind plugins 
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-  # get the first word of command line as tip
-  local tip=${${(MS)BUFFER##[[:graph:]]*}%%[[:space:]]*}
-  # ignore an empty tip
-  if [[ -z "$tip" ]]; then
-    return
-  fi
-  local tooltip=$(/usr/bin/oh-my-posh print tooltip --config="$POSH_THEME" --shell=zsh --status="$omp_last_error" --command="$tip" --shell-version="$ZSH_VERSION")
-  # ignore an empty tooltip
-  if [[ -z "$tooltip" ]]; then
-    return
-  fi
-  RPROMPT=$tooltip
-  zle .reset-prompt
-}
-
-function _posh-zle-line-init() {
-    [[ $CONTEXT == start ]] || return 0
-
-    # Start regular line editor
-    (( $+zle_bracketed_paste )) && print -r -n - $zle_bracketed_paste[1]
-    zle .recursive-edit
-    local -i ret=$?
-    (( $+zle_bracketed_paste )) && print -r -n - $zle_bracketed_paste[2]
-
-    eval "$(/usr/bin/oh-my-posh print transient --status="$omp_last_error" --execution-time="$omp_elapsed" --stack-count="$omp_stack_count" --config="$POSH_THEME" --eval --shell=zsh --shell-version="$ZSH_VERSION" --no-status="$no_exit_code")"
-    zle .reset-prompt
-
-    # If we received EOT, we exit the shell
-    if [[ $ret == 0 && $KEYS == $'\4' ]]; then
-        exit
-    fi
-
-    # Ctrl-C
-    if (( ret )); then
-        zle .send-break
-    else
-        # Enter
-        zle .accept-line
-    fi
-    return ret
-}
-
-function enable_poshtooltips() {
-  zle -N _posh-tooltip
-  bindkey " " _posh-tooltip
-}
-
-function enable_poshtransientprompt() {
-  zle -N zle-line-init _posh-zle-line-init
-
-  # restore broken key bindings
-  # https://github.com/JanDeDobbeleer/oh-my-posh/discussions/2617#discussioncomment-3911044
-  bindkey '^[[F' end-of-line
-  bindkey '^[[H' beginning-of-line
-  _widgets=$(zle -la)
-  if [[ -n "${_widgets[(r)down-line-or-beginning-search]}" ]]; then
-    bindkey '^[[B' down-line-or-beginning-search
-  fi
-  if [[ -n "${_widgets[(r)up-line-or-beginning-search]}" ]]; then
-    bindkey '^[[A' up-line-or-beginning-search
-  fi
-}
-
-if [[ "false" = "true" ]]; then
-  enable_poshtooltips
+if [ ! -d "$ZINIT_HOME" ]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-if [[ "false" = "true" ]]; then
-  enable_poshtransientprompt
-fi
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
 
-if [[ "false" = "true" ]]; then
-    echo ""
-fi
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-eval $(thefuck --alias)
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
-source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
-
-alias vim=nvim
-alias vi=nvim
-
-export ZSH="$HOME/.oh-my-zsh"
-export EDITOR=nvim
-
-export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH"
-
-eval "$(tmuxifier init -)"
-
-ENABLE_CORRECTION="true"
-
-COMPLETION_WAITING_DOTS="true"
-
-HIST_STAMPS="mm.dd.yyyy"
-
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting wakatime)
-
-export QT_QPA_PLATFORMTHEME="qt6ct"
-
-source $ZSH/oh-my-zsh.sh
-
-tmux-window-name() {
-	($TMUX_PLUGIN_MANAGER_PATH/tmux-window-name/scripts/rename_session_windows.py &)
-}
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::archlinux
+zinit snippet OMZP::aws
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::command-not-found
 
 
-# Created by `pipx` on 2024-02-02 15:03:29
-export PATH="$PATH:/usr/local/texlive/2024/bin/x86_64-linux"
-export PATH="$PATH:/home/simon/.local/bin"
+autoload -U compinit && compinit
 
-eval "$(zoxide init --cmd cd zsh)"
+zinit cdreplay -q
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+# History
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
 
 alias vim=nvim
 alias vi=nvim
@@ -217,9 +77,9 @@ alias lg="lazygit"
 alias :q="exit"
 alias cl="clear"
 
-eval $(thefuck --alias)
-
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 
-eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+eval $(thefuck --alias)
