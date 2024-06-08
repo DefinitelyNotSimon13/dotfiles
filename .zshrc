@@ -79,6 +79,9 @@ alias cl="clear"
 
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
+path+=("$HOME/.cargo/bin")
+
+export LFS=/mnt/lfs
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
