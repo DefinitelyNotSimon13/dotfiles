@@ -49,7 +49,7 @@ windows:
   - editor:
       layout: main-vertical
       panes:
-        - nvim
+        - nvim src/main.rs
         - cargo check
 
   - bacon: bacon clippy

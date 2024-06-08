@@ -152,7 +152,7 @@ return { -- LSP Configuration & Plugins
       },
       texlab = {},
       pyright = {},
-      ruff_lsp = { on_attach = on_attach },
+      ruff_lsp = {},
       typst_lsp = {},
       rust_analyzer = {},
       -- gopls = {},
