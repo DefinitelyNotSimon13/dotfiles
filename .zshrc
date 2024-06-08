@@ -1,12 +1,5 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# zinit ind plugins 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+PS1=""
 
 if [ ! -d "$ZINIT_HOME" ]; then
     mkdir -p "$(dirname $ZINIT_HOME)"
@@ -16,31 +9,52 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light wbingli/zsh-wakatime
+zinit light jimhester/per-directory-history
+zinit light hlissner/zsh-autopair
+zinit light fdellwing/zsh-bat
+zinit light zpm-zsh/colorize
+zinit light ChrisPenner/copy-pasta
+zinit light QuarticCat/zsh-smartcache
+zinit light zshzoo/iwd
+zinit light MichaelAquilina/zsh-you-should-use
+zinit light mbenford/zsh-tmux-auto-title
+zinit light romkatv/zsh-defer
 
+zinit snippet https://codeberg.org/DefinitelyNotSimon/sudo-zsh-plugin-fork/raw/branch/main/sudo.plugin.zsh
+zinit snippet OMZ::plugins/git/git.plugin.zsh
 zinit snippet OMZP::git
-zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
-zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
+zinit snippet OMZP::docker-compose
+zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
-
+zinit snippet OMZP::man
+zinit snippet OMZP::tldr
+zinit snippet OMZP::thefuck
+zinit snippet OMZP::systemd
+zinit snippet OMZP::tmuxinator
 
 autoload -U compinit && compinit
 
 zinit cdreplay -q
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=bold
+zinit load 'zsh-users/zsh-history-substring-search'
+zinit ice wait atload'_history_substring_search_config'
 
-bindkey -e
+# Initialize oh my posh
+zsh-defer eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/config.toml)"
+
+
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^g' per-directory-history-toggle-history
 
 # History
 HISTSIZE=10000
@@ -76,12 +90,16 @@ alias zz="cd -"
 alias lg="lazygit"
 alias :q="exit"
 alias cl="clear"
+alias c="clear"
+alias n="nvim"
+alias tx="tmuxinator"
 
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 path+=("$HOME/.cargo/bin")
 
 export LFS=/mnt/lfs
+export EDITOR=nvim
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
