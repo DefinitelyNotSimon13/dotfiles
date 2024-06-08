@@ -67,7 +67,7 @@
     disable_cursor_reposition_on_resize: false,
     keybind: [
         (command: Execute, value: "dmenu_run -p \'Run: \'", modifier: ["modkey"], key: "p"),
-        (command: Execute, value: "firefox https://github.com/di-effe/", modifier: ["modkey"], key: "q"),
+        (command: Execute, value: "firefox", modifier: ["modkey"], key: "q"),
         (command: Execute, value: "dolphin", modifier: ["modkey"], key: "e"),
         (command: Execute, value: "alacritty", modifier: ["modkey"], key: "Return"),
         (command: Execute, value: "tmux", modifier: ["modkey", "Shift"], key: "Return"),
