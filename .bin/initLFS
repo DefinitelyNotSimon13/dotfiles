@@ -1,0 +1,5 @@
+export LFS=/mnt/lfs
+mount -v -t ext4 /dev/sda9 $LFS
+mount -v --mkdir -t ext4 /dev/sda10 $LFS/home
+mount -v --mkdir -t ext4 /dev/sda7 $LFS/boot
+mount -v --mkdir /dev/sda8 $LFS/boot/efi
