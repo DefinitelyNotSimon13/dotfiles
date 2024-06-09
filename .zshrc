@@ -93,7 +93,6 @@ alias cl="clear"
 alias c="clear"
 alias n="nvim"
 alias tx="tmuxinator"
-alias windows="sudo grub-reboot "$(sudo grep -i windows /boot/grub/grub.cfg|cut -d"'" -f2)" && sudo reboot"
 
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
@@ -113,4 +112,8 @@ ns () {
 	else
 	    nvim -c 'lua vim.g.savesession = true' "$@"
 	fi
+}
+
+windows () {
+    sudo grub-reboot "$(sudo grep -i windows /boot/grub/grub.cfg|cut -d"'" -f2)" && sudo reboot
 }
