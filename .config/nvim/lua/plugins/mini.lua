@@ -1,3 +1,10 @@
+vim.cmd [[
+augroup MiniStarterSettings
+    autocmd!
+    autocmd FileType starter setlocal colorcolumn=0
+augroup END
+]]
+
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
   config = function()
@@ -15,6 +22,7 @@ return { -- Collection of various small independent plugins/modules
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
+    require('mini.starter').setup()
     -- require('mini.animate').setup()
 
     -- Simple and easy statusline.

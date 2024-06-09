@@ -42,6 +42,8 @@ return {
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
+      require('CopilotChat.integrations.cmp').setup()
+
       cmp.setup {
         view = {
           entries = {
@@ -101,11 +103,12 @@ return {
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'crates' },
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
-          { name = 'buffer' },
+          { name = 'copilot',  group_index = 2 },
+          { name = 'crates',   group_index = 2 },
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'luasnip',  group_index = 2 },
+          { name = 'path',     group_index = 2 },
+          { name = 'buffer',   group_index = 2 },
         },
       }
 
@@ -156,7 +159,7 @@ return {
             ellipsis_char = tools.ui.icons.ellipses,
             maxwidth = abbr_width_max,
             mode = 'symbol',
-          }(entry, vim_item)
+          } (entry, vim_item)
 
           choice.abbr = vim.trim(choice.abbr)
 
@@ -193,7 +196,7 @@ return {
             ellipsis_char = tools.ui.icons.ellipses,
             maxwidth = abbr_width_max,
             mode = 'symbol',
-          }(entry, vim_item)
+          } (entry, vim_item)
 
           choice.abbr = vim.trim(choice.abbr)
 

@@ -104,3 +104,12 @@ export EDITOR=nvim
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval $(thefuck --alias)
+
+alias nvims="ns"
+ns () {
+	if [[ -f "./Session.vim" ]]; then
+	    nvim -S Session.vim -c 'lua vim.g.savesession = true'
+	else
+	    nvim -c 'lua vim.g.savesession = true' "$@"
+	fi
+}
