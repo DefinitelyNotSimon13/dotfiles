@@ -119,6 +119,21 @@ windows () {
     sudo grub-reboot "$(sudo grep -i windows /boot/grub/grub.cfg|cut -d"'" -f2)" && sudo reboot
 }
 
+nsh () {
+    csh $1
+    nvim $1
+}
+
+csh() {
+    if [ -z "$1" ]; then
+        echo "Usage: create_sh filename.sh"
+        return 1
+    fi
+    touch "$1" && chmod +x "$1"
+    echo "#!/bin/bash" > "$1"
+    echo "Executable file '$1' created."
+}
+
 z () {
     zathura "$@" & disown
 }
