@@ -12,3 +12,5 @@ set statusbar-bg "#a6e3a1"
 
 set statusbar-h-padding "10"
 set statusbar-v-padding "10"
+
+set database sqlite
