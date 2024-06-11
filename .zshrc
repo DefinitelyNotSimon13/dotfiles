@@ -122,3 +122,10 @@ windows () {
 z () {
     zathura "$@" & disown
 }
+
+_zathura_completion() {
+    _files -g '*.pdf'
+}
+
+compdef _files ns
+compdef _zathura_completion z
