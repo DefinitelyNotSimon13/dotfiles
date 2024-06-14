@@ -53,7 +53,7 @@ type = 'python'
 style = 'plain'
 foreground = 'darkGray'
 background = 'transparent'
-template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Major }}.{{.Minor}}{{ end }} '
+template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }}{{ end }} {{ .Major }}.{{.Minor}}{{ end }} '
 
 [blocks.segments.properties]
 display_mode = 'context'

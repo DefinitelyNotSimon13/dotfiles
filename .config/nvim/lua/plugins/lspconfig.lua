@@ -7,12 +7,41 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+      local on_attach = function(client, bufnr)
+        if client.name == 'ruff_lsp' then
+          -- Disable hover in favor of Pyright
+          client.server_capabilities.hoverProvider = false
+        end
+      end
+
       lspconfig.lua_ls.setup {
         settings = {
           Lua = {
             diagnostics = {
               globals = { 'vim' },
               disable = { 'different-requires' },
+            },
+          },
+        },
+
+        lspconfig.ruff_lsp.setup {
+          on_attach = on_attach,
+          init_options = {
+            settings = {
+              args = {},
+            },
+          },
+        },
+
+        lspconfig.pyright.setup {
+          settings = {
+            pyright = {
+              disableOrganizeImports = true,
+            },
+            python = {
+              analysis = {
+                ignore = { '*' },
+              },
             },
           },
         },
@@ -47,29 +76,6 @@ return {
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-              buffer = event.buf,
-              group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
-            })
-
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
-              callback = function(event2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
-              end,
-            })
-          end
-
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())

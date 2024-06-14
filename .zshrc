@@ -94,6 +94,7 @@ alias c="clear"
 alias n="nvim"
 alias tx="tmuxinator"
 alias killme="shutdown now"
+alias uvenv="source .venv/bin/activate"
 
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
