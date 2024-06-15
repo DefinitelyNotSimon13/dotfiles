@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo $1
+
+if [ "$1" != 1 ] && [ "$1" != 2 ]; then
+    echo "1 or 2 for config"
+    exit
+fi
+
+config="config$1"
+echo $config
+
+cd ~/.config/hypr
+find . -maxdepth 1 -type l -delete
+ln -s $config/* .
+
+cd ~/.config/waybar
+find . -maxdepth 1 -type l -delete
+ln -s $config/* .
+killall waybar
+waybar&disown

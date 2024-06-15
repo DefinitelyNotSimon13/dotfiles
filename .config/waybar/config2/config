@@ -1,0 +1,162 @@
+{
+    "layer": "top", // Waybar at top layer
+      "output": ["DP-1","eDP-1"] ,
+    "position": "top", // top|left|bottom|right
+    "margin": "05 05",
+    "margin-bottom": -5,
+    "margin-top": 5,
+    "modules-left": [
+      "user#1",
+      "custom/updates",
+      "custom/media",
+      "hyprland/window"
+    ],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": [
+      "tray",
+      "pulseaudio",
+      "network", "cpu",
+      "temperature",
+      "memory", "battery",
+      "backlight",
+      "keyboard-state",
+      "clock",
+      "custom/power"],
+
+    // Modules configuration
+    "keyboard-state": {
+      "numlock": true,
+      "capslock": false,
+      "format": "{icon} {name}",
+      "format-icons": {
+        "locked": "",
+        "unlocked": ""
+      },
+      "on-click": "eww open dropdown",
+      "on-click-right": "eww close dropdown"
+    },
+    "custom/updates": {
+      "format": " {}",
+      "tooltip": false,
+      "interval": 3600,
+      "exec": "exec $HOME/.config/waybar/scripts/checkupdate.sh",
+      "on-click": "kitty --hold pacman -Qu"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "󰎈"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null",
+        "on-click": "$HOME/.bin/mpd"
+    },
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "urgent": "",
+        "default": "-"
+      },
+      "sort-by-number": true
+    },
+    "hyprland/window": {
+        "format": "➡ {}",
+        "separate-outputs": true
+    },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format-critical": "{temperatureC}°C {icon}",
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["", "", ""]
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["󰁺", "󰁼", "󰁿", "󰂁", "󰁹"],
+        "on-click": "$HOME/.bin/battery"
+    },
+    "network": {
+        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-ethernet": " 󰈀 Connected",
+        "tooltip-format": "󰙨 {ifname} via {gwaddr}",
+        "format-linked": "󰙨 {ifname} (No IP)",
+        "format-disconnected": "⚠ Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click":  "nm-applet"
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "" /*" {volume}%"*/,
+        "format-source-muted": "",
+        "reverse-scrolling": true,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "$HOME/.bin/volume"
+    },
+    "user#1": {
+      "format": " {user}",
+      "interval": 60,
+      "height": 30,
+      "width": 30,
+      "icon": true,
+    },
+    "custom/power":{
+      "format": "⏻",
+      "tooltip": true,
+      "tooltip-format": "Powermenu",
+      "on-click": "$HOME/.bin/powermenu"
+    },
+    "tray":{
+      "show-passive-items":true,
+      "icon-size": 12,
+      "spacing":8
+    },
+    "backlight":{
+      "format": "{icon} {percent}%",
+      "format-icons": ["󰃞"],
+      "on-click": "$HOME/.bin/brightness"
+    },
+}
