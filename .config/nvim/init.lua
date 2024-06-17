@@ -62,3 +62,19 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
     end
   end,
 })
+
+-- Function to set options for .typ files
+local function set_typ_options()
+  -- Enable soft wrapping
+  vim.opt_local.wrap = true
+  -- Break lines at word boundaries
+  vim.opt_local.linebreak = true
+  -- Allow cursor to move freely through wrapped lines
+  vim.opt_local.whichwrap:append 'h,l,<,>,[,],~'
+end
+
+-- Create an autocommand to apply settings for .typ files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'typst',
+  callback = set_typ_options,
+})

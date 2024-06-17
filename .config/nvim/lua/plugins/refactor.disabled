@@ -23,7 +23,8 @@ return {
     vim.keymap.set('n', '<leader>rI', ':Refactor inline_func', { desc = '[R]efactor [I]nline function' })
 
     vim.keymap.set('n', '<leader>rb', ':Refactor extract_block', { desc = '[R]efactor extract [b]lock' })
-    vim.keymap.set('n', '<leader>rbf', ':Refactor extract_block_to_file', { desc = '[R]efactor extract [b]lock to [f]ile' })
+    vim.keymap.set('n', '<leader>rbf', ':Refactor extract_block_to_file',
+      { desc = '[R]efactor extract [b]lock to [f]ile' })
     vim.keymap.set({ 'n', 'x' }, '<leader>rr', function()
       require('refactoring').select_refactor()
     end, { desc = '[R]efacto[r]' })

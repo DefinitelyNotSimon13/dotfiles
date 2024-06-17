@@ -21,9 +21,13 @@ return { -- Collection of various small independent plugins/modules
     -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
+    require('mini.basics').setup()
     require('mini.surround').setup()
     require('mini.starter').setup()
-    -- require('mini.animate').setup()
+    require('mini.comment').setup()
+    require('mini.diff').setup()
+    require('mini.extra').setup()
+    require('mini.git').setup()
 
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
