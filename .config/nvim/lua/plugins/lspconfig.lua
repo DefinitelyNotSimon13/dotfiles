@@ -14,6 +14,8 @@ return {
         end
       end
 
+      lspconfig.clangd.setup {}
+
       lspconfig.lua_ls.setup {
         settings = {
           Lua = {
