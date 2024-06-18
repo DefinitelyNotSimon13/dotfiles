@@ -99,7 +99,7 @@ alias uvenv="source .venv/bin/activate"
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 path+=("$HOME/.cargo/bin")
-
+path+="$(go env GOPATH)/bin"
 export LFS=/mnt/lfs
 export EDITOR=nvim
 
