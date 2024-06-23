@@ -4,7 +4,7 @@ M = {
     config = function()
       require('supermaven-nvim').setup {
         keymaps = {
-          accept_suggestion = '<C-S-Y>',
+          accept_suggestion = '<C-A>',
           clear_suggestion = '<C-]>',
           accept_word = '<C-j>',
         },
@@ -13,9 +13,9 @@ M = {
           suggestion_color = '#585b70',
           cterm = 244,
         },
-        log_level = 'info',                -- set to "off" to disable logging completely
+        log_level = 'off', -- set to "off" to disable logging completely
         disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = false,           -- disables built in keymaps for more manual control
+        disable_keymaps = false, -- disables built in keymaps for more manual control
       }
     end,
   },
@@ -25,7 +25,7 @@ M = {
     event = 'VeryLazy',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
-      { 'nvim-lua/plenary.nvim' },  -- for curl, log wrapper
+      { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
       { 'nvim-telescope/telescope.nvim' },
     },
     opts = {
@@ -92,17 +92,17 @@ function toggle_floating_window()
   }
   local no_floating_window = {
     window = {
-      layout = 'vertical',    -- 'vertical', 'horizontal', 'float', 'replace'
-      width = 0.5,            -- fractional width of parent, or absolute width in columns when > 1
-      height = 0.5,           -- fractional height of parent, or absolute height in rows when > 1
+      layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
+      width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
+      height = 0.5, -- fractional height of parent, or absolute height in rows when > 1
       -- Options below only apply to floating windows
-      relative = 'editor',    -- 'editor', 'win', 'cursor', 'mouse'
-      border = 'single',      -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
-      row = nil,              -- row position of the window, default is centered
-      col = nil,              -- column position of the window, default is centered
+      relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+      border = 'single', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+      row = nil, -- row position of the window, default is centered
+      col = nil, -- column position of the window, default is centered
       title = 'Copilot Chat', -- title of chat window
-      footer = nil,           -- footer of chat window
-      zindex = 1,             -- determines if window is on top or below other floating windows
+      footer = nil, -- footer of chat window
+      zindex = 1, -- determines if window is on top or below other floating windows
     },
   }
   local copilot_chat = require 'CopilotChat'
