@@ -80,11 +80,11 @@ alias vim=nvim
 alias vi=nvim
 alias t=tmux
 alias te="tmux kill-session && exit"
-alias ls="exa --icons"
-alias ll="exa --long --icons"
-alias tree="exa --tree --icons"
-alias la="exa --all --icons"
-alias lla="exa --long --all --icons"
+alias ls="exa --icons --group-directories-first"
+alias ll="exa --long --git --icons --group-directories-first"
+alias tree="exa --tree --icons --group-directories-first"
+alias la="exa --all --icons --group-directories-first"
+alias lla="exa --long --all --icons --group-directories-first"
 alias cat=bat
 alias zz="cd -"
 alias lg="lazygit"
@@ -99,9 +99,10 @@ alias uvenv="source .venv/bin/activate"
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 path+=("$HOME/.cargo/bin")
-
+path+="$(go env GOPATH)/bin"
 export LFS=/mnt/lfs
 export EDITOR=nvim
+export DOTFILES_DIR="$HOME/dotfiles"
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"

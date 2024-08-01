@@ -8,28 +8,9 @@ return {
     null_ls.setup {
       sources = {
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.prettier.with {
-          filetypes = {
-            'javascript',
-            'javascriptreact',
-            'typescript',
-            'typescriptreact',
-            'vue',
-            'css',
-            'scss',
-            'less',
-            'html',
-            'json',
-            'jsonc',
-            'yaml',
-            'markdown',
-            'markdown.mdx',
-            'graphql',
-            'handlebars',
-            'toml',
-          },
-        },
+        null_ls.builtins.formatting.prettier,
       },
+
       on_attach = function(client, bufnr)
         if client.supports_method 'textDocument/formatting' then
           vim.api.nvim_clear_autocmds {
