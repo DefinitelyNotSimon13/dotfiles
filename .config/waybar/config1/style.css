@@ -1,19 +1,19 @@
 @import "mocha.css";
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: JetBrains Mono Nerd Font;
-    font-size: 14px;
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: JetBrains Mono Nerd Font;
+  font-size: 14px;
 }
 
 window#waybar {
-    background-color: @surface0;
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .0s;
+  background-color: @surface0;
+  color: #ffffff;
+  transition-property: background-color;
+  transition-duration: 0s;
 }
 
 window#waybar.hidden {
-    opacity: 0.2;
+  opacity: 0.2;
 }
 
 /*
@@ -29,25 +29,24 @@ window#waybar.termite {
 }
 
 window#waybar.chromium {
-    border: none;
+  border: none;
 }
 
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -3px transparent;
-    /* Avoid rounded borders under each button name */
-    border: none;
-    border-radius: 0;
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each button name */
+  border: none;
+  border-radius: 0;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 
 #workspaces button {
-    padding: 0 5px;
-    border-radius:  0em / 0em;
-    color: @peach;
-    margin: 2px;
-    font-weight: bold;
+  padding: 0 5px;
+  color: @peach;
+  margin: 2px;
+  font-weight: bold;
 }
 
 #workspaces button.active {
@@ -65,7 +64,6 @@ button {
   color: @pink;
 }
 
-
 #clock,
 #battery,
 #cpu,
@@ -75,10 +73,10 @@ button {
 #pulseaudio,
 #keyboard-state,
 #mpd,
-#backlight{
-    padding: 0 8px;
-    color: @peach;
-    font-weight: bold;
+#backlight {
+  padding: 0 8px;
+  color: @peach;
+  font-weight: bold;
 }
 
 #network {
@@ -90,33 +88,31 @@ button {
 }
 
 #memory {
-   color: @yellow;
+  color: @yellow;
 }
 
-#custom-power{
+#custom-power {
   color: @red;
   font-weight: bold;
   padding: 0 15px;
   margin: 0 5px;
-  border-radius: 5em / 5em;
 }
 
 #user,
 #window,
 #workspaces,
 #custom-updates,
-#custom-media{
-    margin: 0 4px;
-    background-color: transparent;
-    font-weight:bold;
-    border-radius: 0em / 0em;
-    padding: 0 10px;
-    color: @peach;
+#custom-media {
+  margin: 0 4px;
+  background-color: transparent;
+  font-weight: bold;
+  padding: 0 10px;
+  color: @peach;
 }
 
 #user,
 #window,
-#custom-updates{
+#custom-updates {
 }
 
 #user {
@@ -126,92 +122,78 @@ button {
 #user.1 {
   margin-right: 0;
   padding-right: 5px;
-  border-radius: 0;
-  border-top-left-radius: 5em 5em;
-  border-bottom-left-radius: 5em 5em;
 }
 
 #custom-updates {
   margin-left: 0;
   padding-left: 5px;
-  border-radius: 0;
-  border-top-right-radius: 5em 5em;
-  border-bottom-right-radius: 5em 5em;
   color: @sky;
 }
 
 #custom-media {
-    min-width: 100px;
-    color: @mauve;
+  min-width: 100px;
+  color: @mauve;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 #clock {
-  border-top-right-radius: 5em 5em;
-  border-bottom-right-radius: 5em 5em;
   color: @sky;
 }
 
-
 @keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
+  to {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }
 
 label:focus {
 }
 
-
 #network.disconnected {
-    background-color: #f53c3c;
+  background-color: #f53c3c;
 }
 
 #pulseaudio {
-    padding-right: 0;
-    border-top-left-radius: 5em 5em;
-    border-bottom-left-radius: 5em 5em;
-    color: @pink;
+  padding-right: 0;
+  color: @pink;
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+  background-color: #90b1b1;
+  color: #2a5c45;
 }
 
 #temperature.critical {
-    background-color: #eb4d4b;
+  background-color: #eb4d4b;
 }
 
 #temperature {
-   color: @green;
+  color: @green;
 }
 
 #keyboard-state {
-    padding: 0 0px;
-    min-width: 16px;
-    color: @mauve;
+  padding: 0 0px;
+  min-width: 16px;
+  color: @mauve;
 }
 
-
 #keyboard-state > label {
-    padding: 0 5px;
+  padding: 0 5px;
 }
 
 #tray {
   padding: 0 10px;
   margin: 0 5px;
-  border-radius: 5em / 5em;
 }
 
 #tray.empty {

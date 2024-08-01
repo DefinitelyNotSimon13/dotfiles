@@ -14,6 +14,8 @@ return {
         end
       end
 
+      lspconfig.gopls.setup {}
+
       lspconfig.lua_ls.setup {
         settings = {
           Lua = {
