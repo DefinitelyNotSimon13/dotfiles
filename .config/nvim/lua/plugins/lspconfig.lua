@@ -18,6 +18,10 @@ return {
 
       lspconfig.gopls.setup {}
 
+      lspconfig.svelte.setup {}
+
+      lspconfig.zls.setup {}
+
       lspconfig.lua_ls.setup {
         settings = {
           Lua = {
