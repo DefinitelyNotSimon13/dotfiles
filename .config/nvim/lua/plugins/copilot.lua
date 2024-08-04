@@ -1,21 +1,16 @@
 M = {
   {
-    'supermaven-inc/supermaven-nvim',
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
     config = function()
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = '<C-A>',
-          clear_suggestion = '<C-]>',
-          accept_word = '<C-j>',
+      require('copilot').setup {
+        suggestion = {
+          enabled = true,
+          keymap = {
+            accept = '<C-a>',
+          },
         },
-        ignore_filetypes = { cpp = true },
-        color = {
-          suggestion_color = '#585b70',
-          cterm = 244,
-        },
-        log_level = 'off', -- set to "off" to disable logging completely
-        disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = false, -- disables built in keymaps for more manual control
       }
     end,
   },
