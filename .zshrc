@@ -148,3 +148,5 @@ _zathura_completion() {
 
 compdef _files ns
 compdef _zathura_completion z
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
