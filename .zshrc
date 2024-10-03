@@ -96,6 +96,8 @@ alias tx="tmuxinator"
 alias killme="shutdown now"
 alias uvenv="source .venv/bin/activate"
 
+alias neorg="nvim -c \"Neorg workspace notes\""
+
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 path+=("$HOME/.cargo/bin")
