@@ -28,6 +28,20 @@ return { -- Collection of various small independent plugins/modules
     require('mini.diff').setup()
     require('mini.extra').setup()
     require('mini.git').setup()
+    require('mini.animate').setup {
+      scroll = {
+        enable = true,
+        timing = function(_, n)
+          return 100 / n
+        end,
+      },
+      cursor = {
+        enable = true,
+        timing = function(_, n)
+          return 100 / n
+        end,
+      },
+    }
 
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
