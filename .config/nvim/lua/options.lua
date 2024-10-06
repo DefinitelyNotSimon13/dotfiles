@@ -71,3 +71,5 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 vim.o.termguicolors = true
+
+vim.cmd.hi 'Comment gui=none'

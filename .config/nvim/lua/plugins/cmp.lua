@@ -20,12 +20,12 @@ return {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -103,12 +103,12 @@ return {
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'neorg',    group_index = 2 },
-          { name = 'crates',   group_index = 2 },
+          { name = 'lazydev', group_index = 0 },
+          { name = 'crates', group_index = 2 },
           { name = 'nvim_lsp', group_index = 2 },
-          { name = 'luasnip',  group_index = 2 },
-          { name = 'path',     group_index = 2 },
-          { name = 'buffer',   group_index = 2 },
+          { name = 'luasnip', group_index = 2 },
+          { name = 'path', group_index = 2 },
+          { name = 'buffer', group_index = 2 },
         },
       }
 
@@ -159,7 +159,7 @@ return {
             ellipsis_char = tools.ui.icons.ellipses,
             maxwidth = abbr_width_max,
             mode = 'symbol',
-          } (entry, vim_item)
+          }(entry, vim_item)
 
           choice.abbr = vim.trim(choice.abbr)
 
@@ -196,7 +196,7 @@ return {
             ellipsis_char = tools.ui.icons.ellipses,
             maxwidth = abbr_width_max,
             mode = 'symbol',
-          } (entry, vim_item)
+          }(entry, vim_item)
 
           choice.abbr = vim.trim(choice.abbr)
 

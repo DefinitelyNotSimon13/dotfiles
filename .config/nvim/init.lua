@@ -6,6 +6,8 @@ require 'options'
 -- Keymaps
 require 'keymaps'
 
+vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 require 'plugins.lazy'
 
@@ -29,13 +31,10 @@ require('lazy').setup({ require 'plugins' }, {
     },
   },
 })
+
 require('oil').setup()
-vim.cmd.colorscheme 'catppuccin'
+-- vim.cmd.colorscheme 'catppuccin'
 vim.cmd.hi 'Comment gui=none'
-require('notify').setup {
-  background_colour = '#000000',
-  render = 'wrapped-compact',
-}
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
@@ -78,3 +77,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'typst',
   callback = set_typ_options,
 })
+
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  dofile(vim.g.base46_cache .. v)
+end
