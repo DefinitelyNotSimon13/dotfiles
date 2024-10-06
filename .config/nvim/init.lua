@@ -1,17 +1,11 @@
--- "<space>sh" to [s]earch the [h]elp documentation
-
--- Options
 require 'options'
 
--- Keymaps
 require 'keymaps'
 
 vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'
 
--- [[ Install `lazy.nvim` plugin manager ]]
 require 'plugins.lazy'
 
--- [[ Configure and install plugins ]]
 require('lazy').setup({ require 'plugins' }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
@@ -31,8 +25,6 @@ require('lazy').setup({ require 'plugins' }, {
     },
   },
 })
-
--- vim.cmd.colorscheme 'catppuccin'
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
@@ -76,11 +68,18 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = set_typ_options,
 })
 
+local function set_md_options()
+  vim.cmd.colorscheme 'catppuccin'
+end
+
+-- Create an autocommand to apply settings for .typ files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  callback = set_md_options,
+})
+
 for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
   dofile(vim.g.base46_cache .. v)
 end
 
-vim.cmd.hi 'Comment gui=none'
-vim.cmd.hi 'LspReferenceRead guifg=none guibg=#45475b'
-vim.cmd.hi 'LspReferenceText guifg=none guibg=#45475b'
-vim.cmd.hi 'LspReferenceWrite guifg=none guibg=#45475b'
+require('oil').setup()

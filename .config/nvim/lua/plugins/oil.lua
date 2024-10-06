@@ -1,4 +1,4 @@
-local M = {
+return {
   'stevearc/oil.nvim',
   opts = {
     default_file_explorer = true,
@@ -9,6 +9,3 @@ local M = {
     vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
   end,
 }
-
-require('oil').setup()
-return M
