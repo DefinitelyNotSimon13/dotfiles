@@ -32,9 +32,7 @@ require('lazy').setup({ require 'plugins' }, {
   },
 })
 
-require('oil').setup()
 -- vim.cmd.colorscheme 'catppuccin'
-vim.cmd.hi 'Comment gui=none'
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
@@ -81,3 +79,8 @@ vim.api.nvim_create_autocmd('FileType', {
 for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
   dofile(vim.g.base46_cache .. v)
 end
+
+vim.cmd.hi 'Comment gui=none'
+vim.cmd.hi 'LspReferenceRead guifg=none guibg=#45475b'
+vim.cmd.hi 'LspReferenceText guifg=none guibg=#45475b'
+vim.cmd.hi 'LspReferenceWrite guifg=none guibg=#45475b'
