@@ -105,6 +105,7 @@ path+="$(go env GOPATH)/bin"
 export LFS=/mnt/lfs
 export EDITOR=nvim
 export DOTFILES_DIR="$HOME/dotfiles"
+export GPG_TTY=$(tty)
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"

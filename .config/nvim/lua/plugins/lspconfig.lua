@@ -140,6 +140,17 @@ return {
         },
       }
 
+      require('lspconfig').nixd.setup({
+          settings = {
+            nixd = {
+              formatting = {
+                command = { "nixfmt" }
+              }
+            }
+          }
+        })
+
+
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
       --  other tools, you can run
