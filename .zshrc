@@ -1,3 +1,4 @@
+CONFIG_FLAKE="${HOME}/dotfiles/nixos"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 PS1=""
 
@@ -101,6 +102,7 @@ alias neorg="nvim -c \"Neorg workspace notes\""
 path+=("$HOME/.scripts/bin")
 path+=("$HOME/.bin")
 path+=("$HOME/.cargo/bin")
+path+=("$CONFIG_FLAKE/bin")
 path+="$(go env GOPATH)/bin"
 export LFS=/mnt/lfs
 export EDITOR=nvim
