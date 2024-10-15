@@ -1,3 +1,0 @@
-#!/bin/bash
-
-find ./* | entr -s "clear && exa --icons --group-directories-first --git --tree"
