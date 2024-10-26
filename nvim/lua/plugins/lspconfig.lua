@@ -140,16 +140,27 @@ return {
         },
       }
 
-      require('lspconfig').nixd.setup({
-          settings = {
-            nixd = {
-              formatting = {
-                command = { "nixfmt" }
-              }
-            }
-          }
-        })
-
+      require('lspconfig').nixd.setup {
+        cmd = { 'nixd' },
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = 'import <nixpkgs> { }',
+            },
+            formatting = {
+              command = { 'alejandra' }, -- or nixfmt or nixpkgs-fmt
+            },
+            options = {
+              nixos = {
+                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
+              },
+              home_manager = {
+                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon@nixos-desktop.options',
+              },
+            },
+          },
+        },
+      }
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
