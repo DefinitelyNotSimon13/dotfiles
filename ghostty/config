@@ -1,0 +1,6 @@
+font-family = "JetBrainsMono NerdFont"
+theme = "catppuccin-mocha"
+window-decoration = false
+shell-integration = zsh
+resize-overlay = never
+confirm-close-surface = false

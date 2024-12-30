@@ -29,6 +29,7 @@ return { -- Collection of various small independent plugins/modules
     require('mini.diff').setup()
     require('mini.extra').setup()
     require('mini.git').setup()
+    require('mini.statusline').setup()
     -- Simple and easy statusline.
     --  You could remove this setup call if you don't like it,
     --  and try some other statusline plugin
