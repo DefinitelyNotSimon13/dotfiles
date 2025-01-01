@@ -1,5 +1,6 @@
 return {
   'm4xshen/smartcolumn.nvim',
-  event = 'VeryLazy',
-  opts = {},
+  opts = {
+    colorcolumn = { '80', '120' },
+  },
 }

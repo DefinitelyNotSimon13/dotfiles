@@ -22,6 +22,7 @@ return { -- Collection of various small independent plugins/modules
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.basics').setup()
+    require('mini.icons').setup()
     require('mini.surround').setup()
     require('mini.starter').setup()
     require('mini.comment').setup()
@@ -29,11 +30,6 @@ return { -- Collection of various small independent plugins/modules
     require('mini.diff').setup()
     require('mini.extra').setup()
     require('mini.git').setup()
-    require('mini.statusline').setup()
-    -- Simple and easy statusline.
-    --  You could remove this setup call if you don't like it,
-    --  and try some other statusline plugin
-    -- set use_icons to true if you have a Nerd Font
 
     -- You can configure sections in the statusline by overriding their
     -- default behavior. For example, here we set the section for
