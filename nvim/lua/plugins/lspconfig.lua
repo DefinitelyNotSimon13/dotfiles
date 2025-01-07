@@ -111,7 +111,6 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
         -- gopls = {},
         rust_analyzer = {},
         kotlin_language_server = {},
@@ -130,8 +129,13 @@ return {
           },
         },
       }
+      local lspconfig = require 'lspconfig'
 
-      require('lspconfig').nixd.setup {
+      lspconfig.clangd.setup {
+        cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose' },
+      }
+
+      lspconfig.nixd.setup {
         cmd = { 'nixd' },
         settings = {
           nixd = {
