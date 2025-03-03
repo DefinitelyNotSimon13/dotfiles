@@ -15,6 +15,7 @@ return {
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
+          map('gh', '<CMD>ClangdSwitchSourceHeader<CR>', '[G]oto [H]eader/Source')
 
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
@@ -111,14 +112,14 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- gopls = {},
+        gopls = {},
         rust_analyzer = {},
-        kotlin_language_server = {},
+        eslint = {},
+        ts_ls = {},
+        css_variables = {},
+        cssls = {},
 
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
@@ -131,9 +132,13 @@ return {
       }
       local lspconfig = require 'lspconfig'
 
+      require('lspconfig').dockerls.setup {}
       lspconfig.clangd.setup {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose' },
+        mason = false,
       }
+
+      lspconfig.pug.setup {}
 
       lspconfig.nixd.setup {
         cmd = { 'nixd' },
