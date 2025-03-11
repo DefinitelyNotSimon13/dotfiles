@@ -118,7 +118,8 @@ return {
         ts_ls = {},
         css_variables = {},
         cssls = {},
-
+        dockerls = {},
+        pug = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -132,13 +133,22 @@ return {
       }
       local lspconfig = require 'lspconfig'
 
-      require('lspconfig').dockerls.setup {}
+      lspconfig.eslint.setup {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            command = 'EslintFixAll',
+          })
+        end,
+      }
+
+      lspconfig.tinymist.setup {}
+
       lspconfig.clangd.setup {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose' },
         mason = false,
       }
-
-      lspconfig.pug.setup {}
 
       lspconfig.nixd.setup {
         cmd = { 'nixd' },
