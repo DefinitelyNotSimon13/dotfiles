@@ -130,6 +130,7 @@ return {
         cmake = {},
         svelte = {},
         emmet_ls = {},
+        marksman = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -203,7 +204,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua',
-        'tailwindcss-language-server',
+        'marksman',
       })
       require('mason-lspconfig').setup {
         handlers = {
