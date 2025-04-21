@@ -113,13 +113,23 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         gopls = {},
-        rust_analyzer = {},
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              check = {
+                allTargets = false,
+              },
+            },
+          },
+        },
         eslint = {},
-        ts_ls = {},
         css_variables = {},
         cssls = {},
         dockerls = {},
         pug = {},
+        cmake = {},
+        svelte = {},
+        emmet_ls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -133,6 +143,10 @@ return {
       }
       local lspconfig = require 'lspconfig'
 
+      lspconfig.ts_ls.setup {
+        filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx' },
+      }
+
       lspconfig.eslint.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
@@ -143,7 +157,11 @@ return {
         end,
       }
 
-      lspconfig.tinymist.setup {}
+      lspconfig.tinymist.setup {
+        root_dir = function(fname)
+          return vim.fs.dirname(vim.fs.find('main.typ', { path = fname, upward = true })[1])
+        end,
+      }
 
       lspconfig.clangd.setup {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose' },
@@ -184,7 +202,8 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'tailwindcss-language-server',
       })
       require('mason-lspconfig').setup {
         handlers = {
