@@ -1,5 +1,1 @@
-rofi -show run \
-  -scroll-method 0 \
-  -terminal kitty \
-  -kb-cancel Escape \
-  -theme /home/simon/dotfiles/.config/rofi/config.rasi
+/nix/store/22kwqzychwpw4yk5crcbzl6jcbip93nh-home-manager-files/.config/rofi/bin/runner.sh

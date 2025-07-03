@@ -1,0 +1,221 @@
+/**
+ *
+ * Original Author : Aditya Shakya (adi1090x)
+ * Github : @adi1090x
+ * 
+ * Modified by : @DefinitelyNotSimon13
+ *
+ * Rofi Theme File
+ * Rofi Version: 1.7.5
+ **/
+
+@import "colors.rasi"
+@import "border.rasi"
+
+/*****----- Configuration -----*****/
+configuration {
+	modi:                       "drun,run,filebrowser,window";
+    show-icons:                 true;
+    display-drun:               "󰣇";
+    display-run:                "";
+    display-filebrowser:        "";
+    display-window:             "󰍹";
+	drun-display-format:        "{name}";
+	window-format:              "{w} · {c} · {t}";
+}
+
+/*****----- Global Properties -----*****/
+* {
+    font:                        "JetBrains Mono Nerd Font 10";
+}
+
+/*****----- Main Window -----*****/
+window {
+    /* properties for window widget */
+    transparency:                93%;
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       1000px;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    /* properties for all widgets */
+    enabled:                     true;
+    border-radius:               10px;
+    cursor:                      "default";
+    background-color:            @bg-col-90;
+    border:                      @border-width;
+    border-color:                @mauve;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+    spacing:                     0px;
+    background-color:            transparent;
+    orientation:                 horizontal;
+    children:                    [ "imagebox", "listbox" ];
+}
+
+imagebox {
+    padding:                     20px;
+    background-color:            transparent;
+    background-image:            url("~/.config/rofi/pictures/1.png", height);
+    orientation:                 vertical;
+    children:                    [ "inputbar", "dummy", "mode-switcher" ];
+}
+
+listbox {
+    spacing:                     20px;
+    padding:                     20px;
+    background-color:            transparent;
+    orientation:                 vertical;
+    children:                    [ "message", "listview" ];
+}
+
+dummy {
+    background-color:            transparent;
+}
+
+/*****----- Inputbar -----*****/
+prompt {
+    enabled:                     true;
+    spacing:                     10px;
+    padding:                     15px;
+    border-radius:               10px;
+    background-color:            transparent;
+    text-color:                  @bg-col;
+}
+textbox-prompt-colon {
+    enabled:                     true;
+    expand:                      false;
+    str:                         "";
+    background-color:            transparent;
+    text-color:                  @bg-col;
+}
+entry {
+    enabled:                     true;
+    background-color:            transparent;
+    text-color:                  @bg-col;
+    cursor:                      text;
+    horizontal-align:            0.0;
+    vertical-align:              0.5;
+    placeholder:                 "Search";
+    placeholder-color:           inherit;
+}
+inputbar {
+    enabled:                     true;
+    background-color:            @bg-alt-90;
+    border-radius:               10px;
+}
+case-indicator {
+    enabled:                     true;
+    background-color:            transparent;
+    text-color:                  @bg-col;
+}
+
+/*****----- Mode Switcher -----*****/
+mode-switcher{
+    enabled:                     true;
+    spacing:                     20px;
+    background-color:            transparent;
+    text-color:                  @bg-col-light;
+}
+button {
+    padding:                     15px;
+    border-radius:               10px;
+    background-color:            @bg-alt-90;
+    text-color:                  inherit;
+    cursor:                      pointer;
+}
+button selected {
+    background-color:            @peach;
+    text-color:                  @bg-col;
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       8;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    
+    spacing:                     10px;
+    background-color:            transparent;
+    text-color:                  @fg-col;
+    cursor:                      "default";
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:                     true;
+    spacing:                     15px;
+    padding:                     8px;
+    border-radius:               10px;
+    background-color:            transparent;
+    text-color:                  @fg-col;
+    cursor:                      pointer;
+}
+element normal.normal {
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+element normal.urgent {
+    background-color:            @red;
+    text-color:                  @bg-col;
+}
+element normal.active {
+    background-color:            @peach;
+    text-color:                  @bg-col;
+}
+element selected.normal {
+    background-color:            @peach;
+    text-color:                  @bg-col;
+}
+element selected.urgent {
+    background-color:            @red;
+    text-color:                  @bg-col;
+}
+element selected.active {
+    background-color:            @red;
+    text-color:                  @bg-col;
+}
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        32px;
+    cursor:                      inherit;
+}
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+/*****----- Message -----*****/
+message {
+    background-color:            transparent;
+}
+textbox {
+    padding:                     15px;
+    border-radius:               10px;
+    background-color:            @bg-alt;
+    text-color:                  @bg-col;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+error-message {
+    padding:                     15px;
+    border-radius:               20px;
+    background-color:            @red;
+    text-color:                  @bg-col;
+}

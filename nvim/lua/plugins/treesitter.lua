@@ -20,6 +20,24 @@ return { -- Highlight, edit, and navigate code
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup(opts)
 
+    local configs = require 'nvim-treesitter.configs'
+
+    configs.setup {
+      auto_install = true,
+      highlight = {
+        enable = true,
+      },
+      indent = {
+        enable = true,
+      },
+    }
+
+    vim.filetype.add {
+      pattern = {
+        ['Jenkinsfile_.*'] = 'groovy',
+      },
+    }
+
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --

@@ -3,7 +3,9 @@ return {
   opts = {
     default_file_explorer = true,
   },
+  cond = not vim.g.vscode,
   -- Optional dependencies
+  --
   dependencies = { { 'echasnovski/mini.icons', opts = {} } },
   config = function()
     local oil = require 'oil'

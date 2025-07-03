@@ -1,6 +1,7 @@
 return {
   'ibhagwan/fzf-lua',
   dependencies = { 'echasnovski/mini.icons' },
+  cond = not vim.g.vscode,
   opts = function()
     local fzf = require 'fzf-lua'
     vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
