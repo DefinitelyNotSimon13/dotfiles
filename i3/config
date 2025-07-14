@@ -21,7 +21,7 @@ exec --no-startup-id picom
 exec --no-startup-id feh --bg-scale ~/backgrounds/nice-blue-background.png
 exec --no-startup-id xrdb -merge ~/.Xresources
 
-exec --no-startup-id setxkbmap -layout de -option caps:swapescape
+exec_always --no-startup-id setxkbmap -layout de -option caps:swapescape
 
 
 # kill any hanging polybar processes
@@ -71,6 +71,8 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
+bindsym $mod+Control+l exec i3lock
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left

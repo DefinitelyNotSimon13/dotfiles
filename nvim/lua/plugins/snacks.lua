@@ -1,6 +1,7 @@
 return {
   'folke/snacks.nvim',
   priority = 1000,
+  cond = not vim.g.vscode,
   lazy = false,
   opts = {
     git = { enabled = true },

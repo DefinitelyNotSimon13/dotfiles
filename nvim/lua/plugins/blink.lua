@@ -5,6 +5,7 @@ return {
     'onsails/lspkind.nvim',
   },
   version = '*',
+  cond = not vim.g.vscode,
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config

@@ -1,7 +1,13 @@
+require 'util.diagnostics'
+
 local Util = {}
 
 function Util.termcodes(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+function Util.visible_buffers()
+  return vim.tbl_map(vim.api.nvim_win_get_buf, vim.api.nvim_list_wins())
 end
 
 function Util.clear_highlights()
@@ -36,6 +42,10 @@ function Util.lsp_active()
     end
   end
   return false
+end
+
+function Util.visible_buffers()
+  return vim.tbl_map(vim.api.nvim_win_get_buf, vim.api.nvim_list_wins())
 end
 
 return Util
