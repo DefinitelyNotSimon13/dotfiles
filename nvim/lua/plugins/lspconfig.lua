@@ -85,6 +85,14 @@ vim.lsp.enable("rust_analyzer")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("eslint")
 
+vim.lsp.config.clangd = {
+  cmd = { 'clangd', '--background-index' },
+  root_markers = { 'compile_commands.json', 'compile_flags.txt' },
+  filetypes = { 'c', 'cpp' }
+}
+
+      vim.lsp.enable("clangd");
+
 
       require('mason').setup()
     end,

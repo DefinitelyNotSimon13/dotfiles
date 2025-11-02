@@ -1,5 +1,5 @@
 font-family = "JetBrainsMono NerdFont"
-theme = Catppuccin Mocha
+theme = Gruvbox Dark
 window-decoration = false
 shell-integration = zsh
 resize-overlay = never

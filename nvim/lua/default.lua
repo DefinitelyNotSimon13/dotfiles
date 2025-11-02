@@ -24,7 +24,7 @@ require('lazy').setup({ require 'plugins' }, {
   },
 })
 
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme 'gruvbox'
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 local function set_md_options()
-  vim.cmd.colorscheme 'catppuccin'
+  vim.cmd.colorscheme 'gruvbox'
 end
 
 -- Create an autocommand to apply settings for .typ files
