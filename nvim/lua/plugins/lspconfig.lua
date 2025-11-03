@@ -80,6 +80,30 @@ return {
           outputPath = '$root/out/$name',
         },
       }
+
+      vim.lsp.config.nixd = {
+        cmd = { 'nixd' },
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = 'import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }',
+            },
+            formatting = {
+              command = { 'nixfmt' },
+            },
+            options = {
+              nixos = {
+                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
+              },
+              home_manager = {
+                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon-arch@arch-desktop.options',
+              },
+            },
+          },
+        },
+      }
+      vim.lsp.enable 'nixd'
+
       vim.lsp.enable 'rust_analyzer'
       vim.lsp.enable 'lua_ls'
       vim.lsp.enable 'hsl'
