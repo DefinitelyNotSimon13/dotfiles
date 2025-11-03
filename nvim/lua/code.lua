@@ -4,8 +4,6 @@ require 'options'
 
 require 'keymaps'
 
-require 'lsp'
-
 require 'plugins.lazy'
 
 require('lazy').setup({ require 'plugins' }, {
