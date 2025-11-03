@@ -72,27 +72,28 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
-vim.lsp.config['tinymist'] = {
-  cmd = { 'tinymist' },
-  filtypes = { 'typst' },
-  settings = {
-    projectResolution = 'lockDatabase',
-    outputPath = '$root/out/$name',
-  },
-}
-vim.lsp.enable("rust_analyzer")
+      vim.lsp.config['tinymist'] = {
+        cmd = { 'tinymist' },
+        filtypes = { 'typst' },
+        settings = {
+          projectResolution = 'lockDatabase',
+          outputPath = '$root/out/$name',
+        },
+      }
+      vim.lsp.enable 'rust_analyzer'
+      vim.lsp.enable 'lua_ls'
+      vim.lsp.enable 'hsl'
 
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("eslint")
+      vim.lsp.enable 'ts_ls'
+      vim.lsp.enable 'eslint'
 
-vim.lsp.config.clangd = {
-  cmd = { 'clangd', '--background-index' },
-  root_markers = { 'compile_commands.json', 'compile_flags.txt' },
-  filetypes = { 'c', 'cpp' }
-}
+      vim.lsp.config.clangd = {
+        cmd = { 'clangd', '--background-index' },
+        root_markers = { 'compile_commands.json', 'compile_flags.txt' },
+        filetypes = { 'c', 'cpp' },
+      }
 
-      vim.lsp.enable("clangd");
-
+      vim.lsp.enable 'clangd'
 
       require('mason').setup()
     end,
