@@ -80,6 +80,7 @@ return {
           outputPath = '$root/out/$name',
         },
       }
+      vim.lsp.enable 'tinymist'
 
       vim.lsp.config.nixd = {
         cmd = { 'nixd' },
