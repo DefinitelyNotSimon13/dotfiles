@@ -1,0 +1,4 @@
+module common
+
+singleton Theme Theme.qml
+singleton HyprState HyprState.qml

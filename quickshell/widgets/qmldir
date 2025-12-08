@@ -1,0 +1,3 @@
+module widgets
+
+VolumeChangeIndicator VolumeChangeIndicator.qml

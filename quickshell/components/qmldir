@@ -1,0 +1,8 @@
+module components
+
+Clock Clock.qml
+Separator Separator.qml
+WorkspaceIndicator WorkspaceIndicator.qml
+StatsRow StatsRow.qml
+Session Session.qml
+

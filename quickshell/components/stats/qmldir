@@ -1,0 +1,11 @@
+module components.stats
+
+Kernel Kernel.qml
+Network Network.qml
+Battery Battery.qml
+CpuUsage CpuUsage.qml
+MemoryUsage MemoryUsage.qml
+DiskUsage DiskUsage.qml
+Volume Volume.qml
+CpuTemp CpuTemp.qml
+

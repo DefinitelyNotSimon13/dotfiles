@@ -82,6 +82,11 @@ return {
       }
       vim.lsp.enable 'tinymist'
 
+      vim.lsp.config.qmlls = {
+        cmd = { "qmlls", "-E" }
+      }
+      vim.lsp.enable 'nixd'
+
       vim.lsp.config.nixd = {
         cmd = { 'nixd' },
         settings = {
@@ -94,16 +99,19 @@ return {
             },
             options = {
               nixos = {
-                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
+                expr =
+                '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
               },
               home_manager = {
-                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon-arch@arch-desktop.options',
+                expr =
+                '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon-arch@arch-desktop.options',
               },
             },
           },
         },
       }
-      vim.lsp.enable 'nixd'
+
+      vim.lsp.enable 'qmlls'
 
       vim.lsp.enable 'rust_analyzer'
       vim.lsp.enable 'lua_ls'
