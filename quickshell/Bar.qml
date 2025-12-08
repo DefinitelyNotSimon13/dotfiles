@@ -10,6 +10,7 @@ import "common"
 PanelWindow {
     required property var modelData
     screen: modelData
+    aboveWindows: false
 
     implicitHeight: 30
     color: Theme.bg
