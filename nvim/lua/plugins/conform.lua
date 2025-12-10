@@ -6,7 +6,7 @@ return { -- Autoformat
     {
       '<leader>f',
       function()
-        require('conform').format { async = true, lsp_fallback = true }
+        require('conform').format { async = true, lsp_format = 'fallback' }
       end,
       mode = '',
       desc = '[F]ormat buffer',
@@ -21,14 +21,13 @@ return { -- Autoformat
       local disable_filetypes = { c = true, cpp = true, java = true }
       local lsp_format_opt
       if disable_filetypes[vim.bo[bufnr].filetype] then
-        lsp_format_opt = 'never'
+        return nil
       else
-        lsp_format_opt = 'fallback'
+        return {
+          timeout_ms = 500,
+          lsp_format = 'fallback',
+        }
       end
-      return {
-        timeout_ms = 500,
-        lsp_format = lsp_format_opt,
-      }
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
@@ -36,7 +35,7 @@ return { -- Autoformat
       -- python = { "isort", "black" },
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
-      -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      javascript = { 'prettier', 'prettierd', stop_after_first = true },
     },
   },
 }

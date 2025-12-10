@@ -1,6 +1,6 @@
 vim.opt.colorcolumn = { '80', '120' }
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 -- Set <space> as the leader key
 -- See `:help mapleader`

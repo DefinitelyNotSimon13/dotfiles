@@ -1,5 +1,17 @@
-if vim.g.vscode then
-  require 'code'
+require 'options'
+require 'keymaps'
+
+require 'config.lazy'
+
+require 'autocommands'
+require 'diagnostics'
+require 'lsp'
+
+vim.cmd.colorscheme 'gruvbox'
+
+if not vim.g.vscode then
+  require('oil').setup()
 else
-  require 'default'
+  vim.g.mapleader = ' '
+  vim.g.maplocalleader = ' '
 end
