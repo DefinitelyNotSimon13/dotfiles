@@ -3,6 +3,9 @@ module components
 Clock Clock.qml
 Separator Separator.qml
 WorkspaceIndicator WorkspaceIndicator.qml
+Tray Tray.qml
+TrayItem TrayItem.qml
+Music Music.qml
 StatsRow StatsRow.qml
 Session Session.qml
 

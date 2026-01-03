@@ -3,7 +3,7 @@ return {
     'neovim/nvim-lspconfig',
     cond = not vim.g.vscode,
     dependencies = {
-      'mason.nvim',
+      'mason-org/mason.nvim',
       { 'williamboman/mason-lspconfig.nvim', config = function() end },
       'ibhagwan/fzf-lua',
     },

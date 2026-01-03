@@ -1,0 +1,14 @@
+confirm-close-surface = false
+shell-integration = zsh
+shell-integration-features = ssh-env,ssh-terminfo,cursor,sudo,title
+clipboard-read = allow
+clipboard-write = allow
+window-decoration = false
+resize-overlay = never
+theme = Gruvbox Dark
+bold-is-bright = true
+cursor-color = #FFFFFF
+font-feature = +calt, +liga, +dlig
+font-family = "JetBrainsMono NerdFont"
+mouse-hide-while-typing = true
+use-ime = false

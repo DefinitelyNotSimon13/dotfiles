@@ -47,6 +47,7 @@ PanelWindow {
 
             WorkspaceIndicator {}
 
+
             Separator {}
 
             Text {
@@ -55,13 +56,22 @@ PanelWindow {
                 font.pixelSize: Theme.fontSize
                 font.family: Theme.fontFamily
                 font.bold: true
-                Layout.fillWidth: true
                 Layout.leftMargin: 8
                 elide: Text.ElideRight
                 maximumLineCount: 1
             }
 
+            Separator {}
+
+            Music {}
+
+            Rectangle {
+                Layout.fillWidth: true
+            }
+
             StatsRow {}
+            // Separator {}
+            // Tray {}
         }
     }
 }

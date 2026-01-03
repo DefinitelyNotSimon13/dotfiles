@@ -1,15 +1,30 @@
-confirm-close-surface = false
-shell-integration = zsh
-shell-integration-features = ssh-env,ssh-terminfo,cursor,sudo,title
-clipboard-read = allow
-clipboard-write = allow
-window-decoration = false
-resize-overlay = never
-theme = Gruvbox Dark
-bold-is-bright = true
-cursor-color = #FFFFFF
+# Font Configuration
+font-size = 12
 font-feature = +calt, +liga, +dlig
 font-family = "JetBrainsMono NerdFont"
+
+shell-integration-features = ssh-env,ssh-terminfo,cursor,sudo,title
+
+shell-integration = zsh
+clipboard-read = allow
+clipboard-write = allow
+
+# Window Configuration
+window-decoration = false
+theme = Gruvbox Dark
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 1.0
+background-blur-radius = 32
+
+# Cursor Configuration
+cursor-style = block
+cursor-style-blink = true
+
+# Scrollback
+scrollback-limit = 3023
+
+# Terminal features
 mouse-hide-while-typing = true
 initial-window=false
 quit-after-last-window-closed = false

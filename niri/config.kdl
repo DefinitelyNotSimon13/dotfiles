@@ -264,7 +264,11 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+spawn-at-startup "GTK_IM_MODULE=simple" "nixGL" "ghostty"
+spawn-at-startup "goxlr-daemon"
+spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "ibus" "start" "--type" "wayland"
+spawn-at-startup "udiskie"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -329,6 +333,19 @@ window-rule {
 
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
+}
+
+window-rule {
+  // Rounded corners for a modern look.
+  geometry-corner-radius 20
+
+  // Clips window contents to the rounded corner boundaries.
+  clip-to-geometry true
+}
+
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
 }
 
 // Example: enable rounded corners for all windows.

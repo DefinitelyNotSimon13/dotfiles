@@ -5,7 +5,7 @@ vim.lsp.enable {
   'emmet_language_server',
   'emmet_ls',
   'eslint',
-  'haskell-language-server',
+  'hls',
   'lua_ls',
   'nixd',
   'rust_analyzer',
