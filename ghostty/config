@@ -11,3 +11,5 @@ cursor-color = #FFFFFF
 font-feature = +calt, +liga, +dlig
 font-family = "JetBrainsMono NerdFont"
 mouse-hide-while-typing = true
+initial-window=false
+quit-after-last-window-closed = false
