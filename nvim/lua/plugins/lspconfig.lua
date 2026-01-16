@@ -71,6 +71,7 @@ return {
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
 
       vim.lsp.config['tinymist'] = {
         cmd = { 'tinymist' },
@@ -83,9 +84,8 @@ return {
       vim.lsp.enable 'tinymist'
 
       vim.lsp.config.qmlls = {
-        cmd = { "qmlls", "-E" }
+        cmd = { 'qmlls', '-E' },
       }
-      vim.lsp.enable 'nixd'
 
       vim.lsp.config.nixd = {
         cmd = { 'nixd' },
@@ -99,17 +99,17 @@ return {
             },
             options = {
               nixos = {
-                expr =
-                '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
+                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
               },
               home_manager = {
-                expr =
-                '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon-arch@arch-desktop.options',
+                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon-arch@arch-desktop.options',
               },
             },
           },
         },
       }
+
+      vim.lsp.enable 'nixd'
 
       vim.lsp.enable 'qmlls'
 
@@ -127,6 +127,14 @@ return {
       }
 
       vim.lsp.enable 'clangd'
+
+      vim.lsp.config.yamlls = {}
+      vim.lsp.enable 'yamlls'
+
+      vim.lsp.config('jsonls', {
+        capabilities = capabilities,
+      })
+      vim.lsp.enable 'jsonls'
 
       require('mason').setup()
     end,
