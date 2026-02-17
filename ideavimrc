@@ -20,14 +20,13 @@ set incsearch
 set hlsearch
 set clipboard+=unnamedplus
 
-set nerdtree
 set which-key
+
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
-set commentary
+Plug 'tpope/vim-surround'
 
 
-map <leader>x :NERDTreeToggle<CR>
 let mapleader=" "
 nnoremap <Space> <Nop>
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
