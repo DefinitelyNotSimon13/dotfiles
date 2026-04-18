@@ -1,1 +1,1 @@
-/nix/store/mhzxcgmrz05rarv29pml1d8pmrpflgf9-home-manager-files/.config/kitty/ReadMe.md
+/nix/store/4ip16yb3zjbbjh5ifjylzjkds434rdy8-home-manager-files/.config/kitty/ReadMe.md

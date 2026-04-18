@@ -12,6 +12,8 @@ vim.lsp.enable {
   'tailwindcss',
   'tinymist',
   'ts_ls',
+  'ruff',
+  'pyright',
 }
 
 -- Autocommands
