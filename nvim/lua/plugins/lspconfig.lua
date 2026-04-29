@@ -3,43 +3,34 @@ return {
     'neovim/nvim-lspconfig',
     cond = not vim.g.vscode,
     dependencies = {
-      'mason-org/mason.nvim',
-      { 'williamboman/mason-lspconfig.nvim', config = function() end },
+      {
+        'mason-org/mason.nvim',
+        ---@module 'mason.settings'
+        ---@type MasonSettings
+        ---@diagnostic disable-next-line: missing-fields
+        opts = {},
+      },
+      'mason-org/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
       'ibhagwan/fzf-lua',
+
+      { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+        group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
           end
+
           map('gh', '<CMD>ClangdSwitchSourceHeader<CR>', '[G]oto [H]eader/Source')
-
-          -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-t>.
-          map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-
-          -- Find references for the word under your cursor.
-          map('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-          map('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-
-          map('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-
-          map('<leader>ds', require('fzf-lua').lsp_document_symbols, '[D]ocument [S]ymbols')
-
-          map('<leader>ws', require('fzf-lua').lsp_live_workspace_symbols, '[W]orkspace [S]ymbols')
 
           map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
-
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method('textDocument/documentHighlight', event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -61,7 +52,7 @@ return {
               end,
             })
           end
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          if client and client:supports_method('textDocument/inlayHint', event.buf) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
@@ -69,74 +60,31 @@ return {
         end,
       })
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      vim.api.nvim_create_user_command('LspInfo', function()
+        vim.cmd 'checkhealth lsp'
+      end, { desc = 'Show LSP health info' })
 
-      vim.lsp.config['tinymist'] = {
-        cmd = { 'tinymist' },
-        filtypes = { 'typst' },
-        settings = {
-          projectResolution = 'lockDatabase',
-          outputPath = '$root/out/$name',
-        },
+      vim.lsp.enable {
+        'biome',
+        'clangd',
+        'cssls',
+        'emmet_language_server',
+        'emmet_ls',
+        'eslint',
+        'hls',
+        'hsl',
+        'jsonls',
+        'lua_ls',
+        'nixd',
+        'pyright',
+        'qmlls',
+        'ruff',
+        'rust_analyzer',
+        'tailwindcss',
+        'tinymist',
+        'ts_ls',
+        'yamlls',
       }
-      vim.lsp.enable 'tinymist'
-
-      vim.lsp.config.qmlls = {
-        cmd = { 'qmlls', '-E' },
-      }
-
-      vim.lsp.config.nixd = {
-        cmd = { 'nixd' },
-        settings = {
-          nixd = {
-            nixpkgs = {
-              expr = 'import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }',
-            },
-            formatting = {
-              command = { 'nixfmt' },
-            },
-            options = {
-              nixos = {
-                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").nixosConfigurations.nixos-desktop.options',
-              },
-              home_manager = {
-                expr = '(builtins.getFlake "github:DefinitelyNotSimon13/nixos-config-flake").homeConfigurations.simon-arch@arch-desktop.options',
-              },
-            },
-          },
-        },
-      }
-
-      vim.lsp.enable 'nixd'
-
-      vim.lsp.enable 'qmlls'
-
-      vim.lsp.enable 'rust_analyzer'
-      vim.lsp.enable 'lua_ls'
-      vim.lsp.enable 'hsl'
-
-      vim.lsp.enable 'ts_ls'
-      vim.lsp.enable 'eslint'
-
-      vim.lsp.config.clangd = {
-        cmd = { 'clangd', '--background-index' },
-        root_markers = { 'compile_commands.json', 'compile_flags.txt' },
-        filetypes = { 'c', 'cpp' },
-      }
-
-      vim.lsp.enable 'clangd'
-
-      vim.lsp.config.yamlls = {}
-      vim.lsp.enable 'yamlls'
-
-      vim.lsp.config('jsonls', {
-        capabilities = capabilities,
-      })
-      vim.lsp.enable 'jsonls'
-
-      require('mason').setup()
     end,
   },
 }
