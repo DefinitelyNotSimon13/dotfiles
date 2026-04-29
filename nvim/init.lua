@@ -5,7 +5,6 @@ require 'config.lazy'
 
 require 'autocommands'
 require 'diagnostics'
-require 'lsp'
 
 vim.cmd.colorscheme 'gruvbox'
 vim.opt.termguicolors = true

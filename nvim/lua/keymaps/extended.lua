@@ -2,7 +2,7 @@ local Util = require 'util'
 
 -- Close floats, and clear highlights with <Esc>
 vim.keymap.set('n', '<Esc>', function()
-  -- not really needed??
+  -- TODO: Can sometimes procude errors
   Util.close_floats()
   if vim.bo.modifiable then
     Util.clear_highlights()
