@@ -1,0 +1,72 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = "$all"
+right_format = ""
+continuation_prompt = '▶▶ '
+
+palette = "base16"
+
+[status]
+disabled = false
+
+[time]
+disabled = true
+
+[cmd_duration]
+min_time = 5
+
+[direnv]
+disabled = false
+
+[profiles]
+transient="""
+$character\
+"""
+rtransient="""
+"""
+
+[palettes.base16]
+base00 = "#282a36"
+base01 = "#363447"
+base02 = "#44475a"
+base03 = "#6272a4"
+base04 = "#9ea8c7"
+base05 = "#f8f8f2"
+base06 = "#f0f1f4"
+base07 = "#ffffff"
+base08 = "#ff5555"
+base09 = "#ffb86c"
+base0A = "#f1fa8c"
+base0B = "#50fa7b"
+base0C = "#8be9fd"
+base0D = "#80bfff"
+base0E = "#ff79c6"
+base0F = "#bd93f9"
+base10 = "#282a36"
+base11 = "#282a36"
+base12 = "#ff5555"
+base13 = "#f1fa8c"
+base14 = "#50fa7b"
+base15 = "#8be9fd"
+base16 = "#80bfff"
+base17 = "#ff79c6"
+black = "#282a36"
+blue = "#80bfff"
+bright-black = "#6272a4"
+bright-blue = "#80bfff"
+bright-cyan = "#8be9fd"
+bright-green = "#50fa7b"
+bright-magenta = "#ff79c6"
+bright-purple = "#ff79c6"
+bright-red = "#ff5555"
+bright-white = "#ffffff"
+bright-yellow = "#f1fa8c"
+brown = "#bd93f9"
+cyan = "#8be9fd"
+green = "#50fa7b"
+magenta = "#ff79c6"
+orange = "#ffb86c"
+purple = "#ff79c6"
+red = "#ff5555"
+white = "#f8f8f2"
+yellow = "#f1fa8c"

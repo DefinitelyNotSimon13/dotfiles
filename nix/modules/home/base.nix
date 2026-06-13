@@ -7,6 +7,7 @@
     home.packages = with pkgs; [
       zip
       wakatime-cli
+      wl-clipboard
     ];
 
   };

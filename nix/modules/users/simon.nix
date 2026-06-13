@@ -33,6 +33,8 @@ in
       hm.theming
       hm.apps
       hm.firefox
+      hm.old-hyprland
+      hm.old-waybar
     ];
 
     home.username = "simon";

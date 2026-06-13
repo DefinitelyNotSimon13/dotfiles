@@ -25,14 +25,17 @@
         "--layout=reverse"
         "--border"
       ];
+      tmux.enableShellIntegration = true;
     };
 
     programs.zoxide = {
       enable = true;
       enableZshIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
     };
 
-    # direnv with nix-direnv: fast `use flake` support for devenv shells
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -40,12 +43,12 @@
     };
 
     programs.lazygit.enable = true;
+    programs.fd.enable = true;
+    programs.ripgrep.enable = true;
+    programs.jq.enable = true;
 
-    # Packages without a dedicated HM programs.* module
     home.packages = with pkgs; [
-      ripgrep
-      fd
-      jq
+      xh
       curl
       unzip
     ];
