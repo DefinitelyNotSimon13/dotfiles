@@ -1,0 +1,3 @@
+for f in "${ZDOTDIR:-$HOME/.config/zsh}/conf.d/"*.zsh(N); do
+  source "$f"
+done
