@@ -13,17 +13,13 @@
       stylix = {
         enable = true;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
-        # image = pkgs.runCommand "dracula-wallpaper.png" {
-        #   nativeBuildInputs = [ pkgs.imagemagick ];
-        # } "convert -size 1920x1080 xc:#282a36 $out";
+        image = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/dracula/wallpaper/master/first-collection/nixos.png";
+          hash = "sha256-hJBs+1MYSAqxb9+ENP0AsHdUrvjTzjobGv57dx5pPGE=";
+        };
         polarity = "dark";
         targets = {
           qt.platform = lib.mkForce "qtct";
-        };
-        cursor = {
-          package = pkgs.bibata-cursors;
-          name = "Bibata-Modern-Ice";
-          size = 24;
         };
       };
     };

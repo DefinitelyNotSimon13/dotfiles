@@ -262,7 +262,7 @@
         }
 
         window#waybar {
-        background-color: @current-line;
+        background-color: @background;
         color: @foreground;
         transition-property: background-color;
         transition-duration: 0s;

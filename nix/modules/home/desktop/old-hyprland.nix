@@ -1,13 +1,22 @@
 { ... }:
 {
-  flake.modules.home.old-hyprland = { pkgs, ... }: {
+  flake.modules.home.old-hyprland = { pkgs, lib, ... }: {
     home.packages = with pkgs; [ hyprcursor ];
+
+    home.file.".local/share/icons/catppuccin-mocha-dark-cursors" = {
+      source = "${pkgs.catppuccin-cursors.mochaDark}/share/icons/catppuccin-mocha-dark-cursors";
+      recursive = true;
+    };
 
     programs.fuzzel.enable = true;
     programs.waybar.enable = true;
-    xdg.portal.config.common.default = "*";
 
-    stylix.targets.hyprland.enable = false;
+    stylix.targets.hyprland = {
+      enable = true;
+      colors.enable = false;
+    };
+
+    services.hyprpaper.enable = true;
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -15,19 +24,57 @@
 
       settings = {
         monitor = [
-          { output = "DP-1";    mode = "2560x1440@164.84"; position = "1920x0";    scale = 1; }
-          { output = "HDMI-A-1"; mode = "1920x1080@60";    position = "0x0";       scale = 1; }
-          { output = "DP-3";    mode = "1920x1080@60";     position = "4480x-700"; scale = 1; transform = 3; }
+          {
+            output = "DP-1";
+            mode = "2560x1440@164.84";
+            position = "1920x0";
+            scale = 1;
+          }
+          {
+            output = "HDMI-A-1";
+            mode = "1920x1080@60";
+            position = "0x0";
+            scale = 1;
+          }
+          {
+            output = "DP-3";
+            mode = "1920x1080@60";
+            position = "4480x-700";
+            scale = 1;
+            transform = 3;
+          }
         ];
 
         workspace_rule = [
-          { workspace = "1"; monitor = "DP-1"; default = true; }
-          { workspace = "2"; monitor = "DP-1"; }
-          { workspace = "3"; monitor = "DP-1"; }
-          { workspace = "4"; monitor = "DP-1"; }
-          { workspace = "5"; monitor = "DP-1"; }
-          { workspace = "6"; monitor = "DP-1"; }
-          { workspace = "7"; monitor = "DP-1"; }
+          {
+            workspace = "1";
+            monitor = "DP-1";
+            default = true;
+          }
+          {
+            workspace = "2";
+            monitor = "DP-1";
+          }
+          {
+            workspace = "3";
+            monitor = "DP-1";
+          }
+          {
+            workspace = "4";
+            monitor = "DP-1";
+          }
+          {
+            workspace = "5";
+            monitor = "DP-1";
+          }
+          {
+            workspace = "6";
+            monitor = "DP-1";
+          }
+          {
+            workspace = "7";
+            monitor = "DP-1";
+          }
         ];
 
         config = {
@@ -102,10 +149,11 @@
 
       extraConfig = /* lua */ ''
         hl.on("hyprland.start", function()
-          hl.exec_cmd("waybar")
-          hl.exec_cmd("hyprpaper")
-          hl.exec_cmd("wl-paste --watch cliphist store")
-          hl.exec_cmd("udiskie")
+          hl.exec_cmd("${lib.getExe pkgs.waybar}")
+          hl.exec_cmd("${lib.getExe pkgs.hyprpaper}")
+          hl.exec_cmd("${lib.getExe' pkgs.wl-clipboard "wl-paste"} --watch ${lib.getExe pkgs.cliphist} store")
+          hl.exec_cmd("${lib.getExe' pkgs.udiskie "udiskie"}")
+          hl.exec_cmd("hyprctl setcursor catppuccin-mocha-dark-cursors 24")
         end)
 
         hl.env("WLR_NO_HARDWARE_CURSORS", "1")
@@ -119,21 +167,21 @@
         })
 
         local mod = "SUPER"
-        hl.bind(mod .. " + RETURN",    hl.dsp.exec_cmd("ghostty"))
-        hl.bind(mod .. " + SPACE",     hl.dsp.exec_cmd("fuzzel"))
+        hl.bind(mod .. " + RETURN",    hl.dsp.exec_cmd("${lib.getExe pkgs.ghostty}"))
+        hl.bind(mod .. " + SPACE",     hl.dsp.exec_cmd("${lib.getExe pkgs.fuzzel}"))
         hl.bind(mod .. " + comma",     hl.dsp.exec_cmd("qs -c noctalia-shell ipc call settings toggle"))
         hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call launcher clipboard"))
         hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call launcher emoji"))
         hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call sessionMenu toggle"))
         hl.bind(mod .. " + L",         hl.dsp.exec_cmd("qs -c noctalia-shell ipc call lockScreen lock"))
-        hl.bind(mod .. " + Q",         hl.dsp.exec_cmd("brave"))
+        hl.bind(mod .. " + Q",         hl.dsp.exec_cmd("${lib.getExe pkgs.brave}"))
         hl.bind(mod .. " + C",         hl.dsp.window.close())
         hl.bind(mod .. " + SHIFT + M", hl.dsp.exit())
         hl.bind(mod .. " + V",         hl.dsp.window.float({ action = "toggle" }))
         hl.bind(mod .. " + P",         hl.dsp.window.pseudo())
         hl.bind(mod .. " + J",         hl.dsp.layout("togglesplit"))
         hl.bind(mod .. " + F",         hl.dsp.window.fullscreen({ mode = 0 }))
-        hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("spotify"))
+        hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("${lib.getExe pkgs.spotify}"))
         hl.bind(mod .. " + H",         hl.dsp.focus({ direction = "left" }))
         hl.bind(mod .. " + L",         hl.dsp.focus({ direction = "right" }))
         hl.bind(mod .. " + K",         hl.dsp.focus({ direction = "up" }))
@@ -154,19 +202,19 @@
         hl.bind(mod .. " + SHIFT + left",  hl.dsp.window.resize({ x = -10, y = 0,   relative = true }))
         hl.bind(mod .. " + SHIFT + up",    hl.dsp.window.resize({ x = 0,   y = -10, relative = true }))
         hl.bind(mod .. " + SHIFT + down",  hl.dsp.window.resize({ x = 0,   y = 10,  relative = true }))
-        hl.bind(mod .. " + code:123",      hl.dsp.exec_cmd("playerctl volume 1"))
-        hl.bind("XF86AudioRaiseVolume",    hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
-        hl.bind("XF86AudioLowerVolume",    hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
-        hl.bind("XF86AudioMute",           hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
-        hl.bind("XF86MonBrightnessUp",     hl.dsp.exec_cmd("brightnessctl --class=backlight set +5%"))
-        hl.bind("XF86MonBrightnessDown",   hl.dsp.exec_cmd("brightnessctl --class=backlight set 5%-"))
-        hl.bind("XF86AudioPlay",           hl.dsp.exec_cmd("playerctl play-pause"))
-        hl.bind("XF86AudioStop",           hl.dsp.exec_cmd("playerctl stop"))
-        hl.bind("XF86AudioNext",           hl.dsp.exec_cmd("playerctl next"))
-        hl.bind("XF86AudioPrev",           hl.dsp.exec_cmd("playerctl previous"))
+        hl.bind(mod .. " + code:123",      hl.dsp.exec_cmd("${lib.getExe pkgs.playerctl} volume 1"))
+        hl.bind("XF86AudioRaiseVolume",    hl.dsp.exec_cmd("${lib.getExe' pkgs.wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
+        hl.bind("XF86AudioLowerVolume",    hl.dsp.exec_cmd("${lib.getExe' pkgs.wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
+        hl.bind("XF86AudioMute",           hl.dsp.exec_cmd("${lib.getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+        hl.bind("XF86MonBrightnessUp",     hl.dsp.exec_cmd("${lib.getExe pkgs.brightnessctl} --class=backlight set +5%"))
+        hl.bind("XF86MonBrightnessDown",   hl.dsp.exec_cmd("${lib.getExe pkgs.brightnessctl} --class=backlight set 5%-"))
+        hl.bind("XF86AudioPlay",           hl.dsp.exec_cmd("${lib.getExe pkgs.playerctl} play-pause"))
+        hl.bind("XF86AudioStop",           hl.dsp.exec_cmd("${lib.getExe pkgs.playerctl} stop"))
+        hl.bind("XF86AudioNext",           hl.dsp.exec_cmd("${lib.getExe pkgs.playerctl} next"))
+        hl.bind("XF86AudioPrev",           hl.dsp.exec_cmd("${lib.getExe pkgs.playerctl} previous"))
         hl.bind(mod .. " + mouse:272",     hl.dsp.window.drag(),   { mouse = true })
         hl.bind(mod .. " + mouse:273",     hl.dsp.window.resize(), { mouse = true })
-        hl.bind(mod .. " + Super_L",       hl.dsp.exec_cmd("fuzzel"), { release = true })
+        hl.bind(mod .. " + Super_L",       hl.dsp.exec_cmd("${lib.getExe pkgs.fuzzel}"), { release = true })
       '';
     };
   };

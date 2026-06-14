@@ -2,6 +2,9 @@
 {
   flake.modules.nixos.gnome = { ... }: {
     services.xserver.enable = true;
+    services.displayManager = {
+      defaultSession = "hyprland";
+    };
     services.displayManager.gdm = {
       enable = true;
     };
