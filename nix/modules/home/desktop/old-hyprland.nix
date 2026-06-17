@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.modules.home.old-hyprland = { pkgs, lib, ... }: {
-    home.packages = with pkgs; [ hyprcursor ];
+    home.packages = with pkgs; [ hyprcursor hyprshot ];
 
     home.file.".local/share/icons/catppuccin-mocha-dark-cursors" = {
       source = "${pkgs.catppuccin-cursors.mochaDark}/share/icons/catppuccin-mocha-dark-cursors";
@@ -80,7 +80,7 @@
         config = {
           cursor = {
             inactive_timeout = 3;
-            no_hardware_cursors = true;
+            no_hardware_cursors = 2;
           };
 
           xwayland = {
@@ -157,6 +157,8 @@
         end)
 
         hl.env("WLR_NO_HARDWARE_CURSORS", "1")
+        hl.env("XCURSOR_THEME", "catppuccin-mocha-dark-cursors")
+        hl.env("XCURSOR_SIZE", "24")
         hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
         hl.layer_rule({
@@ -181,6 +183,7 @@
         hl.bind(mod .. " + P",         hl.dsp.window.pseudo())
         hl.bind(mod .. " + J",         hl.dsp.layout("togglesplit"))
         hl.bind(mod .. " + F",         hl.dsp.window.fullscreen({ mode = 0 }))
+        hl.bind(mod .. " + S",         hl.dsp.exec_cmd("${lib.getExe pkgs.hyprshot} -m region"))
         hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("${lib.getExe pkgs.spotify}"))
         hl.bind(mod .. " + H",         hl.dsp.focus({ direction = "left" }))
         hl.bind(mod .. " + L",         hl.dsp.focus({ direction = "right" }))

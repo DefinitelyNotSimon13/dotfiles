@@ -32,6 +32,7 @@ in
       hm.sops
       hm.theming
       hm.apps
+      hm.spotify
       hm.firefox
       hm.old-hyprland
       hm.old-waybar

@@ -34,6 +34,8 @@ in
 
       mod.simon
 
+      mod.gaming
+
       mod.hyprland
       mod.niri
 
