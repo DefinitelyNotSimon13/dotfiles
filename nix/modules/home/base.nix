@@ -1,10 +1,9 @@
 { ... }:
 {
-  flake.modules.home.base = { pkgs, ... }: {
+  flake.modules.home.base = { ... }: {
     programs.home-manager.enable = true;
     xdg = {
       enable = true;
-      mimeApps.enable = true;
       userDirs.enable = true;
       autostart.enable = true;
     };
