@@ -36,12 +36,15 @@
       ];
     };
 
-    programs.command-not-found.enable = true;
-
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
+    };
+
+    programs.nix-index = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     programs.lazygit.enable = true;

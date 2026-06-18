@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = "$all"
+format = "${custom.devenv_active}${custom.devenv_available}$all"
 right_format = ""
 
 palette = "base16"
@@ -11,11 +11,32 @@ disabled = false
 [time]
 disabled = true
 
-[cmd_duration]
-min_time = 5
-
 [direnv]
 disabled = false
+
+[custom.devenv_available]
+description = "Show when a devenv environment is available but not active"
+when = '''
+test \( -f devenv.nix -o -f devenv.yaml -o -f devenv.lock \) \
+  && test -z "$DEVENV_ROOT" \
+  && test -z "$IN_NIX_SHELL"
+'''
+format = """[$symbol$output]($style)
+"""
+command = 'printf "devenv available"'
+symbol = '󱄅 '
+style = 'italic white'
+
+[custom.devenv_active]
+description = "Show when a devenv environment is active"
+when = '''
+test -n "$DEVENV_ROOT" || test -n "$IN_NIX_SHELL"
+'''
+format = """[$symbol$output]($style)
+"""
+command = 'printf "devenv active"'
+symbol = '󱄅 '
+style = 'bold green'
 
 [profiles]
 transient="""

@@ -12,6 +12,8 @@ alias -- la='eza -a --icons --git'
 alias -- lla='eza -lah --icons --git'
 alias -- tree='eza --tree --icons'
 
+alias -- ds='devenv shell'
+
 compdef eza=ls
 
 alias -- cat='bat -p'

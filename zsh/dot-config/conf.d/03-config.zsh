@@ -29,4 +29,4 @@ hash -d dl=$HOME/Downloads
 hash -d dot=$HOME/.dotfiles
 hash -d nix=$HOME/.dotfiles/nix
 
-eval "$(devenv hook zsh)"
+# eval "$(devenv hook zsh)"
