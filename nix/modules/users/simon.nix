@@ -22,8 +22,10 @@ in
   flake.modules.home.simon = { ... }: {
     imports = [
       hm.base
+
       hm.zsh
       hm.tmux
+
       hm.dotfiles
       hm.neovim
       hm.tools
@@ -34,6 +36,7 @@ in
       hm.apps
       hm.spotify
       hm.firefox
+      hm.ghostty
       hm.old-hyprland
       hm.old-waybar
     ];

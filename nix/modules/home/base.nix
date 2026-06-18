@@ -10,8 +10,6 @@
       wl-clipboard
     ];
 
-    programs.ghostty.enable = true;
-
     programs.btop.enable = true;
     stylix.targets.ghostty.enable = false;
 

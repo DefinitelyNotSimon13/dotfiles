@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  self,
   ...
 }:
 let
@@ -9,11 +10,14 @@ let
 in
 {
   flake.nixosConfigurations.nixos-desktop = inputs.nixpkgs.lib.nixosSystem {
-    specialArgs = { inherit inputs; };
+    specialArgs = { inherit inputs self; };
 
     modules = [
       hw.nixos-desktop
       mod.nixos-desktop
+
+      mod.preferences-monitors
+      mod.preferences-keybinds
 
       mod.nix
       mod.locale

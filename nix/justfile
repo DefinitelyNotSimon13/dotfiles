@@ -1,0 +1,39 @@
+default:
+    @just --list
+
+switch *args:
+    #!/usr/bin/env bash
+    git add -A
+    nh os switch {{args}}
+    gen=$(readlink /nix/var/nix/profiles/system | grep -oP 'system-\K[0-9]+')
+    timestamp=$(date '+%Y-%m-%d %H:%M')
+    git diff --cached --quiet && echo "Nothing to commit." || \
+      git commit -m "gen $gen: $timestamp"
+
+build *args:
+    git add -A
+    nh os build {{args}}
+
+check:
+    nix flake check
+
+update:
+    nix flake update
+
+update-input input:
+    nix flake update {{input}}
+
+gc:
+    nh clean all
+
+generations:
+    nix-env --list-generations --profile /nix/var/nix/profiles/system
+
+rollback:
+    sudo nixos-rebuild switch --rollback
+
+secrets:
+    sops secrets/secrets.yaml
+
+diff *args:
+    nh os switch --dry {{args}}

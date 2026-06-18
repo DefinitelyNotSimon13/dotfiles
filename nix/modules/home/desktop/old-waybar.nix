@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.home.old-waybar = { pkgs, ... }: {
+  flake.modules.home.old-waybar = { pkgs, self, osConfig, ... }: {
 
     stylix.targets.waybar.enable = false;
 
@@ -9,12 +9,7 @@
       settings = {
         second-bar = {
           layer = "top";
-          output = [
-            "DP-7"
-            "DP-2"
-            "DP-3"
-            "HDMI-A-1"
-          ];
+          output = self.preferenceLib.mkSecondaryOutputs osConfig.preferences.monitors;
           position = "bottom";
           margin = "0 0";
           margin-bottom = 0;
@@ -29,11 +24,7 @@
         };
         mainbar = {
           layer = "top";
-          output = [
-            "DP-6"
-            "DP-1"
-            "eDP-1"
-          ];
+          output = self.preferenceLib.mkPrimaryOutputs osConfig.preferences.monitors;
           position = "bottom";
           margin = "0 0";
           margin-bottom = 0;
