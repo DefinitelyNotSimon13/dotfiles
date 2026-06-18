@@ -2,7 +2,6 @@
 
 format = "$all"
 right_format = ""
-continuation_prompt = '▶▶ '
 
 palette = "base16"
 

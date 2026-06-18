@@ -50,17 +50,23 @@
         installVimSyntax = true;
 
         settings = {
-          # Font Configuration
           font-size = 12;
           font-feature = [
             "+calt"
             "+liga"
             "+dlig"
+            "+zero"
 
             "+ss02"
+            "+ss19"
+            "+ss20"
+
+            "+cv01"
             "+cv02"
+            "+cv03"
             "+cv04"
             "+cv05"
+            "+cv06"
             "+cv17"
           ];
 
