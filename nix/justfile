@@ -91,6 +91,17 @@ rollback:
 secrets:
     sops secrets/secrets.yaml
 
+# Show Home Manager activation logs for debugging (default: last 15 min; 0 = entire boot)
+hm-logs minutes="15":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    unit="home-manager-$(whoami).service"
+    if [[ "{{minutes}}" == "0" ]]; then
+      journalctl -u "$unit" -b --no-pager
+    else
+      journalctl -u "$unit" -b --since "{{minutes}} minutes ago" --no-pager
+    fi
+
 diff *args:
     #!/usr/bin/env bash
     set -euo pipefail

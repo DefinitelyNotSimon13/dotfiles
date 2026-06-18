@@ -95,8 +95,7 @@
 
           mouse-hide-while-typing = true;
 
-          # initial-window = false;
-          # quit-after-last-window-closed = false;
+          quit-after-last-window-closed = false;
 
           gtk-titlebar = false;
           confirm-close-surface = false;
