@@ -19,7 +19,7 @@ in
     };
   };
 
-  flake.modules.home.simon = { ... }: {
+  flake.modules.home.simon = { inputs, ... }: {
     imports = [
       hm.base
       hm.preferences
@@ -40,6 +40,8 @@ in
       hm.ghostty
       hm.old-hyprland
       hm.old-waybar
+
+      inputs.nix-index-database.homeModules.default
     ];
 
     home.username = "simon";

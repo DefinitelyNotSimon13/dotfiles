@@ -25,7 +25,7 @@ format = """[$symbol$output]($style)
 """
 command = 'printf "devenv available"'
 symbol = '󱄅 '
-style = 'italic white'
+style = 'italic cyan'
 
 [custom.devenv_active]
 description = "Show when a devenv environment is active"
