@@ -17,3 +17,9 @@ nvim() {
     command nvim "$@"
   fi
 }
+
+switch () {
+  pushd $NH_FLAKE || echo "Failed to open flake dir" >&2
+  just switch
+  popd || echo "Failed to return to initial dir" >&2
+}
