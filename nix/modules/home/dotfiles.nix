@@ -21,7 +21,6 @@
 
       xdg.configFile = {
         "nvim".source = link "nvim/dot-config/nvim";
-        "ghostty".source = link "ghostty/dot-config/ghostty";
         "zsh/conf.d".source = link "zsh/dot-config/conf.d";
         "starship".source = link "starship/dot-config/starship";
       };

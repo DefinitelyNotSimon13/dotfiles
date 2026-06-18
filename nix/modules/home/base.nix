@@ -11,7 +11,6 @@
     ];
 
     programs.btop.enable = true;
-    stylix.targets.ghostty.enable = false;
 
     home.sessionVariables = {
       NIXPKGS_ALLOW_UNFREE = "1";

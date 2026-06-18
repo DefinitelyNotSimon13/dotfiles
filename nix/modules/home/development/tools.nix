@@ -48,6 +48,7 @@
     programs.jq.enable = true;
 
     home.packages = with pkgs; [
+      tealdeer
       just
       xh
       curl

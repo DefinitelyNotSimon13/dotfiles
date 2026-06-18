@@ -4,10 +4,43 @@
     {
       pkgs,
       lib,
+      config,
       self,
-      osConfig,
       ...
     }:
+    let
+      monitors = config.preferences.monitors;
+
+      mkMonitorSettings =
+        lib.mapAttrsToList (
+          name: m:
+          {
+            output = name;
+            mode = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            position = "${toString m.x}x${toString m.y}";
+            scale = m.scale;
+          }
+          // lib.optionalAttrs (m.transform != 0) { transform = m.transform; }
+        ) monitors;
+
+      mkWorkspaceRules =
+        n:
+        let
+          primary = lib.findFirst (m: m.primary) (throw "preferences.monitors: no monitor has primary = true") (
+            lib.mapAttrsToList (name: m: m // { inherit name; }) monitors
+          );
+        in
+        map (i: {
+          workspace = toString i;
+          monitor = primary.name;
+          default = i == 1;
+        }) (lib.range 1 n);
+
+      mkHyprlandBinds =
+        lib.concatMapStringsSep "\n" (
+          b: ''hl.bind("${b.mods} + ${b.key}", hl.dsp.exec_cmd("${b.exec}"))''
+        ) config.preferences.keybinds;
+    in
     {
       home.packages = with pkgs; [
         hyprcursor
@@ -34,8 +67,8 @@
         configType = "lua";
 
         settings = {
-          monitor = self.preferenceLib.mkMonitorSettings osConfig.preferences.monitors;
-          workspace_rule = self.preferenceLib.mkWorkspaceRules osConfig.preferences.monitors 7;
+          monitor = mkMonitorSettings;
+          workspace_rule = mkWorkspaceRules 7;
 
           config = {
             cursor = {
@@ -128,7 +161,7 @@
             ignore_alpha = 0.5,
           })
 
-          ${self.preferenceLib.mkHyprlandBinds osConfig.preferences.keybinds}
+          ${mkHyprlandBinds}
 
           local mod = "SUPER"
           hl.bind(mod .. " + C",         hl.dsp.window.close())

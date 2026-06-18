@@ -37,6 +37,8 @@
       ghostty = self.packages.${system}.myGhostty;
     in
     {
+      stylix.targets.ghostty.enable = false;
+
       programs.ghostty = {
         enable = true;
         package = ghostty;

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.home.old-waybar = { pkgs, self, osConfig, ... }: {
+  flake.modules.home.old-waybar = { pkgs, lib, config, ... }: {
 
     stylix.targets.waybar.enable = false;
 
@@ -9,7 +9,7 @@
       settings = {
         second-bar = {
           layer = "top";
-          output = self.preferenceLib.mkSecondaryOutputs osConfig.preferences.monitors;
+          output = lib.mapAttrsToList (n: _: n) (lib.filterAttrs (_: m: !m.primary) config.preferences.monitors);
           position = "bottom";
           margin = "0 0";
           margin-bottom = 0;
@@ -24,7 +24,7 @@
         };
         mainbar = {
           layer = "top";
-          output = self.preferenceLib.mkPrimaryOutputs osConfig.preferences.monitors;
+          output = lib.mapAttrsToList (n: _: n) (lib.filterAttrs (_: m: m.primary) config.preferences.monitors);
           position = "bottom";
           margin = "0 0";
           margin-bottom = 0;

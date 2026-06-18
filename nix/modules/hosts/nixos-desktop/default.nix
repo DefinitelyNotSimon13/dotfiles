@@ -16,9 +16,6 @@ in
       hw.nixos-desktop
       mod.nixos-desktop
 
-      mod.preferences-monitors
-      mod.preferences-keybinds
-
       mod.nix
       mod.locale
       mod.networking

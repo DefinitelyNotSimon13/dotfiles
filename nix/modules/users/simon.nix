@@ -22,6 +22,7 @@ in
   flake.modules.home.simon = { ... }: {
     imports = [
       hm.base
+      hm.preferences
 
       hm.zsh
       hm.tmux

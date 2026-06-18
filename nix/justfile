@@ -1,18 +1,56 @@
 default:
     @just --list
 
+_nh_target:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    os_id="$(
+      grep '^ID=' /etc/os-release 2>/dev/null \
+        | cut -d= -f2- \
+        | tr -d '"'
+    )"
+
+    if [[ "$os_id" == "nixos" ]]; then
+      echo "os"
+    else
+      echo "home"
+    fi
+
 switch *args:
     #!/usr/bin/env bash
+    set -euo pipefail
+
+    target="$(just _nh_target)"
+
     git add -A
-    nh os switch {{args}}
-    gen=$(readlink /nix/var/nix/profiles/system | grep -oP 'system-\K[0-9]+')
-    timestamp=$(date '+%Y-%m-%d %H:%M')
-    git diff --cached --quiet && echo "Nothing to commit." || \
-      git commit -m "gen $gen: $timestamp"
+
+    if ! nh "$target" switch {{args}}; then
+      echo -e "\n\e[1;30;41mFailed to switch config!\e[0m\n"
+      exit 1
+    fi
+
+    if [[ "$target" == "os" ]]; then
+      gen="$(readlink /nix/var/nix/profiles/system | grep -oP 'system-\K[0-9]+' || true)"
+    else
+      gen="$(home-manager generations 2>/dev/null | head -n1 | awk '{print $5}' || true)"
+    fi
+
+    timestamp="$(date '+%Y-%m-%d %H:%M')"
+
+    if git diff --cached --quiet; then
+      echo "Nothing to commit."
+    else
+      git commit -m "${target} gen ${gen:-unknown}: $timestamp"
+    fi
 
 build *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    target="$(just _nh_target)"
     git add -A
-    nh os build {{args}}
+    nh "$target" build {{args}}
 
 check:
     nix flake check
@@ -27,13 +65,35 @@ gc:
     nh clean all
 
 generations:
-    nix-env --list-generations --profile /nix/var/nix/profiles/system
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    target="$(just _nh_target)"
+
+    if [[ "$target" == "os" ]]; then
+      nix-env --list-generations --profile /nix/var/nix/profiles/system
+    else
+      home-manager generations
+    fi
 
 rollback:
-    sudo nixos-rebuild switch --rollback
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    target="$(just _nh_target)"
+
+    if [[ "$target" == "os" ]]; then
+      sudo nixos-rebuild switch --rollback
+    else
+      home-manager switch --rollback
+    fi
 
 secrets:
     sops secrets/secrets.yaml
 
 diff *args:
-    nh os switch --dry {{args}}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    target="$(just _nh_target)"
+    nh "$target" switch --dry {{args}}
