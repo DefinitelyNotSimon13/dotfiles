@@ -1,0 +1,69 @@
+ZVM_INIT_MODE=sourcing
+
+autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zsh/zcompdump
+
+for f in "${ZDOTDIR:-$HOME/.config/zsh}"/conf.d/*.zsh; do
+  source "$f"
+done
+
+zvm_after_init() {
+  _bindings_init
+}
+
+typeset -U path cdpath fpath manpath
+
+eval "$(zoxide init zsh --cmd cd)"
+
+HISTSIZE="10000"
+SAVEHIST="10000"
+
+HISTFILE="/home/simon/.config/zsh/.zsh_history"
+mkdir -p "$(dirname "$HISTFILE")"
+
+if [[ $options[zle] = on ]]; then
+  source <(fzf --zsh)
+fi
+
+# Set shell options
+set_opts=(
+  HIST_FCNTL_LOCK HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
+  NO_APPEND_HISTORY NO_EXTENDED_HISTORY NO_HIST_EXPIRE_DUPS_FIRST
+  NO_HIST_FIND_NO_DUPS NO_HIST_IGNORE_ALL_DUPS NO_HIST_SAVE_NO_DUPS
+)
+for opt in "${set_opts[@]}"; do
+  setopt "$opt"
+done
+unset opt set_opts
+
+# source /nix/store/b8czyqdr657gj2mk3sn37q8j3mniqd7f-nix-index-with-full-db-0.1.10/etc/profile.d/command-not-found.sh
+
+function lg() {
+    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+    command lazygit "$@"
+    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+      cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+      rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    fi
+}
+
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi
+
+# eval "$(/nix/store/gv6dc61q6sprcm3hr69yxnwjn3gwcvsc-direnv-2.37.1/bin/direnv hook zsh)"
+
+alias -- eza='eza --icons auto --git --group-directories-first --header'
+alias -- la='eza -a'
+alias -- ll='eza -l'
+alias -- lla='eza -la'
+alias -- ls=eza
+alias -- lt='eza --tree'
+alias -- nr='nix run --impure'
+alias -- ns='nix shell --impure'
+alias -- vi=nvim
+alias -- vim=nvim
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main)
+
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down

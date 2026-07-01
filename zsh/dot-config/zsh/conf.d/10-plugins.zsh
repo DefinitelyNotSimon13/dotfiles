@@ -31,5 +31,3 @@ _zplugin_load jeffreytse zsh-vi-mode
 _zplugin_load Aloxaf fzf-tab
 _zplugin_load wbingli zsh-wakatime
 
-
-

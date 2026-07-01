@@ -1,3 +1,10 @@
+if _has batcat; then
+  alias -- bat=batcat
+fi
+
+compdef eza=ls
+compdef bat=cat
+
 alias -- n='nvim'
 alias -- t='tmux'
 alias -- c='clear'
@@ -14,7 +21,6 @@ alias -- tree='eza --tree --icons'
 
 alias -- ds='devenv shell'
 
-compdef eza=ls
 
 alias -- cat='bat -p'
 alias -- find='fd'
@@ -63,3 +69,4 @@ alias -g -- ND='>/dev/null'
 alias -g -- NUL='>/dev/null 2>&1'
 alias -g -- JQ='| jq'
 alias -g -- C='| wl-copy'
+

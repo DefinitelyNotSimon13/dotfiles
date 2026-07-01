@@ -1,7 +1,6 @@
-# Font Configuration
-font-size = 12
-font-feature = +calt, +liga, +dlig
-font-family = "JetBrainsMono NerdFont"
+font-size = 14
+font-feature = +calt, +liga, +dlig, +ss02, +ss19, +ss20, +cv02, +cv04, +cv05, +cv17
+font-family = "JetBrainsMono Nerd Font"
 
 shell-integration-features = ssh-env,ssh-terminfo,cursor,sudo,title
 
@@ -9,22 +8,17 @@ shell-integration = zsh
 clipboard-read = allow
 clipboard-write = allow
 
-# Window Configuration
-# window-decoration = false
 theme = Dracula
 window-padding-x = 12
 window-padding-y = 12
 background-opacity = 1.0
 background-blur-radius = 32
 
-# Cursor Configuration
 cursor-style = block
 cursor-style-blink = true
 
-# Scrollback
 scrollback-limit = 3023
 
-# Terminal features
 mouse-hide-while-typing = true
-# initial-window=false
-# quit-after-last-window-closed = false
+initial-window=false
+quit-after-last-window-closed = false
